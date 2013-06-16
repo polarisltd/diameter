@@ -1,0 +1,139 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for org.mobicents.servers.diameter.examples:charging-server-simulator:jar:1.0.0-SNAPSHOT
+[WARNING] The expression ${pom.artifactId} is deprecated. Please use ${project.artifactId} instead.
+[WARNING] The expression ${pom.artifactId} is deprecated. Please use ${project.artifactId} instead.
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Mobicents :: Examples :: charging-server-simulator 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ charging-server-simulator ---
+[INFO] Deleting C:\projects\Emblacom\src\charging-server-simulatorGx\target
+[INFO] 
+[INFO] --- buildnumber-maven-plugin:1.0:create (default) @ charging-server-simulator ---
+[INFO] Storing buildNumber: 20130615.2238 at timestamp: 1371325087533
+[INFO] Executing: cmd.exe /X /C "svn --non-interactive info"
+[INFO] Working directory: C:\projects\Emblacom\src\charging-server-simulatorGx
+[INFO] Storing buildScmBranch: UNKNOWN_BRANCH
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ charging-server-simulator ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 4 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ charging-server-simulator ---
+[WARNING] File encoding has not been set, using platform encoding Cp1252, i.e. build is platform dependent!
+[INFO] Compiling 6 source files to C:\projects\Emblacom\src\charging-server-simulatorGx\target\classes
+[INFO] 
+[INFO] --- maven-bundle-plugin:2.3.4:manifest (bundle-manifest) @ charging-server-simulator ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ charging-server-simulator ---
+[debug] execute contextualize
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory C:\projects\Emblacom\src\charging-server-simulatorGx\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ charging-server-simulator ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ charging-server-simulator ---
+[INFO] No tests to run.
+[INFO] Surefire report directory: C:\projects\Emblacom\src\charging-server-simulatorGx\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.3.1:jar (default-jar) @ charging-server-simulator ---
+[INFO] Building jar: C:\projects\Emblacom\src\charging-server-simulatorGx\target\mobicents-dcs-b20130615.2238.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.3.1:install (default-install) @ charging-server-simulator ---
+[INFO] Installing C:\projects\Emblacom\src\charging-server-simulatorGx\target\mobicents-dcs-b20130615.2238.jar to C:\Users\Roberts\.m2\repository\org\mobicents\servers\diameter\examples\charging-server-simulator\1.0.0-SNAPSHOT\charging-server-simulator-1.0.0-SNAPSHOT.jar
+[INFO] Installing C:\projects\Emblacom\src\charging-server-simulatorGx\pom.xml to C:\Users\Roberts\.m2\repository\org\mobicents\servers\diameter\examples\charging-server-simulator\1.0.0-SNAPSHOT\charging-server-simulator-1.0.0-SNAPSHOT.pom
+[INFO] 
+[INFO] --- maven-assembly-plugin:2.2-beta-4:single (default) @ charging-server-simulator ---
+[INFO] Reading assembly descriptor: src/main/assembly/standalone.xml
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/slf4j/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.slf4j/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/apache/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/jdiameter/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mobicents.servers.diameter/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mobicents.servers.diameter/ already added, skipping
+[INFO] Building jar: C:\projects\Emblacom\src\charging-server-simulatorGx\target\mobicents-dcs-b20130615.2238-standalone.jar
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/slf4j/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.slf4j/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/apache/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] org/jdiameter/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mobicents.servers.diameter/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/ already added, skipping
+[INFO] META-INF/MANIFEST.MF already added, skipping
+[INFO] org/ already added, skipping
+[INFO] META-INF/maven/ already added, skipping
+[INFO] META-INF/maven/org.mobicents.servers.diameter/ already added, skipping
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 17.936s
+[INFO] Finished at: Sat Jun 15 22:38:21 EEST 2013
+[INFO] Final Memory: 28M/362M
+[INFO] ------------------------------------------------------------------------
