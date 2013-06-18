@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: Roberts
+Build-Jdk: 1.6.0_14
+Main-Class: org.mobicents.servers.diameter.charging.ChargingServerSimu
+ lator
+Class-Path: config/
