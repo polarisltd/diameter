@@ -6,18 +6,25 @@ import org.jdiameter.api.Avp;
 import org.jdiameter.api.AvpDataException;
 import org.jdiameter.api.AvpSet;
 import org.jdiameter.api.annotation.AvpType;
+import org.jdiameter.common.impl.validation.DictionaryImpl;
+import org.jdiameter.api.validation.AvpRepresentation;
+import org.jdiameter.api.validation.Dictionary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.p4.config.Configuration;
 import pl.p4.config.EnumProperties;
 import pl.p4.diameter.client.jDiamClient;
+
  
  public class AvpHelper
  {
    private static Logger log = LoggerFactory.getLogger(AvpHelper.class);
    private static boolean showVnd = false;
    private static Configuration config = null;
- 
+   public static Dictionary AVP_DICTIONARY = DictionaryImpl.INSTANCE;
+
+   
+   
    public static String getAvpSetAsString(AvpSet avpSet, int lvl)
    {
      if (config == null) {
@@ -41,6 +48,100 @@ import pl.p4.diameter.client.jDiamClient;
      return s;
    }
  
+   
+   public static String printMyAvps(AvpSet avps) {
+	   if (config == null) {
+	         config = jDiamClient.getConfig();
+	         showVnd = config.getBoolean(EnumProperties.SHOW_VENDOR_ID);
+	   }
+       String avpLine = "{ "; // always start with { to have any grouped included in brackets
+	    for(Avp avp : avps) {
+	      int code = avp.getCode();	
+	      String avpName = AvpInfo.getName(code);	
+	      String avpType = AvpInfo.getType(code);
+	      
+	      if (avpType == null) {
+	        return null;
+	      }
+	      AvpType type = AvpType.valueOf(avpType); // AvpType.Grouped 
+	      // if ((type == AvpType.Unsigned32) || (type == AvpType.Enumerated))
+	      Object avpValue = null;
+	      boolean isGrouped = false;
+	      
+	      // extract current AVP value
+	      try {
+
+	        if(type == AvpType.Integer32 || type == AvpType.Enumerated ) {
+	          avpValue = avp.getInteger32();
+	        }
+	        else if(type == AvpType.Address) {
+		          avpValue = avp.getAddress();
+		    }
+
+	        else if(type == AvpType.DiameterIdentity) {
+		          avpValue = avp.getDiameterIdentity();
+		    }
+	        else if(type == AvpType.Unsigned32) {
+	          avpValue = avp.getUnsigned32();
+	        }
+	        else if(type == AvpType.Float64) {
+	          avpValue = avp.getFloat64();
+	        }
+	        else if(type == AvpType.Integer64) {
+	          avpValue = avp.getInteger64();
+	        }
+	        else if(type == AvpType.Time) {
+	          avpValue = avp.getTime();
+	        }
+	        //AvpType.
+	        else if(type == AvpType.Unsigned64) {
+	          avpValue = avp.getUnsigned64();
+	        }
+	        else if(type == AvpType.UTF8String) {
+		          avpValue = avp.getUTF8String();
+		    }	        
+	        else if(type == AvpType.OctetString) {
+		          avpValue = avp.getUTF8String();
+		    }	        
+	        else if(type == AvpType.Grouped) {
+	          avpValue = "<Grouped>";
+	          isGrouped = true;
+	        }
+	        else {
+	          avpValue = avp.getOctetString(); //.replaceAll("\r", "").replaceAll("\n", "");
+	        }
+	      }
+	      catch (Exception ignore) {
+	    	  avpValue = avp.toString();  
+	        //try {
+	          //avpValue = avp.getOctetString().replaceAll("\r", "").replaceAll("\n", "");
+	        //}
+	        //catch (AvpDataException e) {
+	        //  avpValue = avp.toString();
+	        //}
+	      }
+         //
+	      
+	      
+	      if(isGrouped) {
+	    	  avpLine +=  avpName+": "; 
+	          try {
+	        	  avpLine +=  printMyAvps(avp.getGrouped());          
+	          }catch (AvpDataException e) {
+	        	  log.info("Failed to ungroup... ignore then... \n"); 
+	          }
+	      }else{
+	          avpLine +=  avpName+":"+avpValue+"; ";
+	      }    
+
+	      
+	    }// avps loop
+	    
+       return avpLine+"}";
+	  }
+   
+   
+   
    private static String getTab(int lvl) {
      String s = "";
      for (int i = 0; i < lvl; i++) {

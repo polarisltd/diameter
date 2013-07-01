@@ -36,7 +36,7 @@ public class Configuration
 	       Logger logger = Logger.getLogger(AvpInfo.class.getName());
 	       String v = this.props.getProperty(key.trim()); // maybe trim() makes a trick?
 	       //if(v==null){
-	    	   logger.info("Confuguration get("+key+")=>"+v);
+	       //	   logger.info("Confuguration get("+key+")=>"+v);
 	       //}
      return v;
    }

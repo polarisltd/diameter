@@ -2,14 +2,17 @@
 
 <message CommandCode="272" request="1">
    <Destination-Realm mandatory="1">emblacom.com</Destination-Realm>
-   <Auth-Application-Id mandatory="1">4</Auth-Application-Id>
+   <Vendor-Specific-Application-Id mandatory="1">
+      <Vendor-Id mandatory="1">10415</Vendor-Id>
+      <Auth-Application-Id mandatory="1">4</Auth-Application-Id>
+   </Vendor-Specific-Application-Id>
    <Service-Context-Id mandatory="1">32251@3gpp.org</Service-Context-Id>
    <CC-Request-Type mandatory="1">1</CC-Request-Type>
    <CC-Request-Number mandatory="1">0</CC-Request-Number>
    <Origin-State-Id mandatory="1">1348041829</Origin-State-Id>
    <Event-Timestamp mandatory="1"/>
    <Subscription-Id mandatory="1">
-      <Subscription-Id-Type mandatory="1">48790965042</Subscription-Id-Type>
+      <Subscription-Id-Type mandatory="1">0</Subscription-Id-Type>
       <Subscription-Id-Data mandatory="1">260980003000042</Subscription-Id-Data>
    </Subscription-Id>
    <Multiple-Services-Indicator mandatory="1">1</Multiple-Services-Indicator>

@@ -3,4 +3,5 @@ charging-server-simulatorGx/target/*/*
 charging-server-simulatorGx/target/*/*/*
 client-simulator-jdiameter/target/*
 client-simulator-jdiameter/target/*/*
+client-simulator-jdiameter/bin/*
 !.gitignore
