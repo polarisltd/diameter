@@ -118,11 +118,13 @@ final int  Rating_Group=432;
   }
 
   
-  StackCreator stackCreator = null;
+  // StackCreator stackCreator = null; refer to setup.stackCreator instead!
   private String testId;
   //ISessionFactory sessionFactory1;
   public ChargingServerSimulator() throws Exception {
       super(setup.getSessionFactory());
+      //
+      //stackCreator = setup.stackCreator;
 //      this.setup = su;
         int port=8088;
         String path = "/test"; // path starting from slash (/)
@@ -141,21 +143,6 @@ final int  Rating_Group=432;
     AvpDictionary.INSTANCE.parseDictionary(this.getClass().getClassLoader().getResourceAsStream("dictionary.xml"));
 
     try {
-     /**** MOVED OUT INTO StackSetup	
-      String config = readFile(this.getClass().getClassLoader().getResourceAsStream("config-server.xml"));
-      this.stackCreator = new StackCreator(config, this, this, "Server", true);
-
-      Network network = this.stackCreator.unwrap(Network.class);
-      network.addNetworkReqListener(this, roAppId);
-      network.addNetworkReqListener(this, ApplicationId.createByAuthAppId(0, 4));
-
-      this.stackCreator.start(Mode.ALL_PEERS, 30000, TimeUnit.MILLISECONDS);
-
-      printLogo();
-
-      sessionFactory = (ISessionFactory) stackCreator.getSessionFactory();
-      //init(sessionFactory); // damn.. this doesn't looks good
-      ****/
 
       ((ISessionFactory) sessionFactory).registerAppFacory(ClientGxSession.class, this);
       ((ISessionFactory) sessionFactory).registerAppFacory(ServerGxSession.class, this);
@@ -234,10 +221,10 @@ final int  Rating_Group=432;
       String osLine = sysProps.getProperty("os.name") + "/" + sysProps.getProperty("os.arch");
       String javaLine = sysProps.getProperty("java.vm.vendor") + " " + sysProps.getProperty("java.vm.name") + " " + sysProps.getProperty("java.vm.version");
 
-      Peer localPeer = stackCreator.getMetaData().getLocalPeer();
+      Peer localPeer = setup.stackCreator.getMetaData().getLocalPeer();
 
       String diameterLine = localPeer.getProductName() + " (" +  localPeer.getUri() + " @ " + localPeer.getRealmName() + ")";
-
+      //localPeer.
       logger.info("===============================================================================");
       logger.info("");
       logger.info("== Mobicents Diameter Ro/Rf Server Simulator (" + osLine + ")" );
@@ -343,7 +330,7 @@ final int  Rating_Group=432;
         try{  
           logger.info("ETriggering test05/test06"); 
           cca = createCCA(session, request, -1, 3002);
-          //cca.getMessage().setError(true); IF setError() is executed no CCA has been delivered back to client!
+          //cca.getMessage().setError(true); IF setError() is executed no CCA has been delivered back to client e.g. being filtered!
  
           logger.info("Executing test 5 - CCSF=FAILOVER_SUPPORTED, CCFH=TERMINATE, DIAMETER_RESULT_CODE=DIAMETER_UNABLE_TO_DELIVER/3002");
   
@@ -552,7 +539,7 @@ final int  Rating_Group=432;
           //    DIAMETER_USER_UNKNOWN                      5030
           // The specified end user is unknown in the credit-control server.
           cca = createCCA(session, request, -1, 5030);
-          cca.getMessage().setError(true);
+          // cca.getMessage().setError(true); DONT USE THIS AS setError(true) makes CCA is being filtered out!  
           if(logger.isInfoEnabled()) {
             logger.info("<> '" + subscriptionId + "' is not provisioned in this server. Rejecting.");
           }
@@ -684,7 +671,7 @@ final int  Rating_Group=432;
         if(balance == null) {
             //    DIAMETER_USER_UNKNOWN                      5030
             cca = createCCA(session, request, -1, 5030);
-            cca.getMessage().setError(true);
+            // cca.getMessage().setError(true); DONT USE THIS AS setError(true) makes CCA is being filtered out!  
 
             if(logger.isInfoEnabled()) {
               logger.info("<> '" + subscriptionId + "' Unknown account. Rejecting 5030.");
@@ -779,6 +766,9 @@ final int  Rating_Group=432;
     //  { Result-Code }
     //  { Origin-Host }
     //  { Origin-Realm }
+    Peer localPeer = setup.stackCreator.getMetaData().getLocalPeer();
+    ccaAvps.addAvp(Avp.ORIGIN_HOST,localPeer.getUri());
+    ccaAvps.addAvp(Avp.ORIGIN_REALM,localPeer.getRealmName(),false);		//ccaAvps.
     //  { Auth-Application-Id }
 
     //  { CC-Request-Type }

@@ -24,69 +24,83 @@
  import org.jdiameter.client.impl.helpers.XMLConfiguration;
  import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
+
+import com.sun.jmx.snmp.Timestamp;
+
  import pl.p4.config.ConfigParserProperties;
  import pl.p4.config.Configuration;
- import pl.p4.diameter.scn.Scenario;
+import pl.p4.diameter.scn.Scenario;
  
  public class jDiamClient
  {
-/*  34 */   private static Logger log = LoggerFactory.getLogger(jDiamClient.class);
-   private static final String stackConfigFile = "conf/config.xml";
+   private static Logger log = LoggerFactory.getLogger(jDiamClient.class);
+   private static String stackConfigFile = "conf/config.xml";
    private static String scenarioFile;
    private static Stack stack;
    private static SessionFactory factory;
-/*  42 */   private static Configuration config = null;
-/*  43 */   private static String msisdn = null;
-/*  44 */   private static boolean autoRN = false;
-/*  45 */   private static ArrayList<String> ovrAvps = new ArrayList();
+   private static Configuration config = null;
+   private static String msisdn = null;
+   private static boolean autoRN = false;
+   private static ArrayList<String> ovrAvps = new ArrayList();
  
    public static void main(String[] args)
      throws IOException, URISyntaxException
    {
-/*  55 */     PropertyConfigurator.configure("conf/log4j.properties");
- 
-/*  57 */     if ((args == null) || (args.length < 1)) {
-/*  58 */       log.error("No scenario file");
-/*  59 */       return;
+     PropertyConfigurator.configure("conf/log4j.properties");
+     printLogo();
+     if ((args == null) || (args.length < 1)) {
+       log.error("No scenario file");
+       return;
      }
  
-/*  62 */     if (args.length == 1) {
-/*  63 */       if (args[0].equals("--version")) {
-/*  64 */         URI uri = jDiamClient.class.getProtectionDomain().getCodeSource().getLocation().toURI();
-/*  65 */         JarFile jarfile = new JarFile(new File(uri));
-/*  66 */         Manifest manifest = jarfile.getManifest();
-/*  67 */         Attributes att = manifest.getMainAttributes();
+     if (args.length == 1) {
+       if (args[0].equals("--version")) {
+         URI uri = jDiamClient.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+         JarFile jarfile = new JarFile(new File(uri));
+         Manifest manifest = jarfile.getManifest();
+         Attributes att = manifest.getMainAttributes();
  
-/*  69 */         System.out.println("Version: " + att.getValue("Implementation-Version") + 
-/*  70 */           " [" + att.getValue("Build-Time") + "]");
-/*  71 */         return;
-/*  72 */       }if (args[0].equals("--help")) {
-/*  73 */         System.out.println("./run [-n] [-a avp=val] scenario_file [MSISDN]");
-/*  74 */         System.out.println("   OPTION:");
-/*  75 */         System.out.println("      -n\tautomatic request number");
-/*  76 */         System.out.println("      -a\toverwrite of AVP, currently are supported: ");
-/*  77 */         System.out.println("      \t\t  Rating-Group");
-/*  78 */         System.out.println("      \t\t  Called-Station-Id");
-/*  79 */         System.out.println("      \t\t  SGSN-Address");
-/*  80 */         return;
+         System.out.println("Version: " + att.getValue("Implementation-Version") + 
+           " [" + att.getValue("Build-Time") + "]");
+         return;
+       }if (args[0].equals("--help")) {
+         System.out.println("./run [-n] [-a avp=val] [-c config.xml]  scenario_file [MSISDN]");
+         System.out.println("      \t\t  MSISDN ## Service-Information/MMS-Information/Originator-Address/Address-Data ## Subscription-Id/Subscription-Id-Data");         
+         System.out.println("   OPTION:");
+         System.out.println("      -n\tautomatic request number");
+         System.out.println("      -a\toverwrite of AVP, currently are supported: ");
+         System.out.println("      \t\t  Rating-Group");
+         System.out.println("      \t\t  Called-Station-Id");
+         System.out.println("      \t\t  SGSN-Address");
+         System.out.println("      \t\t  BNUM ## Service-Information/MMS-Information/Recipient-Address/Address-Data");         
+         System.out.println("      -c\t provide filename of config.xml");
+         
+         
+         
+         
+         return;
        }
-/*  82 */       scenarioFile = args[0];
+       scenarioFile = args[0];
      }
      else {
-/*  85 */       log.trace("Parsing command line..");
+       log.trace("Parsing command line..");
  
-/*  87 */       for (int i = 0; i < args.length; i++) {
-/*  88 */         if (args[i].equals("-a")) {
-/*  89 */           i++;
-/*  90 */           ovrAvps.add(args[i]);
-/*  91 */           log.trace("Parsed AVP to overwrite: " + args[i]);
-/*  92 */         } else if ((args[i].equals("--automatic-request-number")) || 
-/*  93 */           (args[i].equals("-n"))) {
-/*  94 */           autoRN = true;
-/*  95 */           log.trace("Parsed option 'Automatic Request Number'");
-/*  96 */         } else if (scenarioFile == null) {
-/*  97 */           scenarioFile = args[i];
-/*  98 */           log.trace("Parsed scenario: " + args[i]);
+       for (int i = 0; i < args.length; i++) {
+         if (args[i].equals("-a")) {
+           i++;
+           ovrAvps.add(args[i]);
+           log.trace("Parsed AVP to overwrite: " + args[i]);
+         } else if ((args[i].equals("--automatic-request-number")) || 
+           (args[i].equals("-n"))) {
+           autoRN = true;
+           log.trace("Parsed option 'Automatic Request Number'");
+         } else if (args[i].equals("-c") ) {
+           i++;
+           stackConfigFile="conf/"+args[i];
+           log.trace("Using Mobicents config="+stackConfigFile);
+         } else if (scenarioFile == null) {
+           scenarioFile = args[i];
+           log.trace("Parsed scenario: " + args[i]);
          } else {
            msisdn = args[i];
            log.trace("Parsed MSISDN: " + args[i]);
@@ -94,9 +108,6 @@
        }
      }
  
-
-
-
 
      config = ConfigParserProperties.parseFile("conf/diam.properties");
      try
@@ -110,8 +121,8 @@
  
      XMLConfiguration config = null;
      try {
-       log.info("Loading Diameter stack configuration file [conf/config.xml]");
-       config = new XMLConfiguration("conf/config.xml");
+       log.info("Loading Diameter stack configuration file ["+stackConfigFile+"]");
+       config = new XMLConfiguration(stackConfigFile);
      } catch (Exception ex) {
        log.error(null, ex);
        stack.destroy();
@@ -192,5 +203,19 @@
    public static ArrayList<String> getOvrAvps() {
      return ovrAvps;
    }
+   static void printLogo(){
+       log.info("***************************************************************************************************\n"+
+"**\n"+   
+"**                                         Running scenario: "+scenarioFile+"\n"+   
+"**\n"+   
+"**                                         "+new Timestamp(new Date().getTime())+"\n"+   
+"**\n"+   
+"**\n"+   
+"**\n"+   
+"**\n"+   
+"*********************************************************************************************************************\n");
+   }
+   
+   
  }
 

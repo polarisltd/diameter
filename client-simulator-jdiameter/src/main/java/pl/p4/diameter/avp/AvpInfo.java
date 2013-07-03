@@ -4,18 +4,19 @@
  import java.util.Enumeration;
  import java.util.Hashtable;
  import java.util.Properties;
- import java.util.logging.Level;
- import java.util.logging.Logger;
 
-import org.slf4j.LoggerFactory;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
 
  import pl.p4.config.ConfigParserProperties;
  import pl.p4.config.Configuration;
+ import pl.p4.diameter.scn.Message;
  
  public class AvpInfo
  {
    private static Configuration config = null;
    private static Hashtable<String, String> names = new Hashtable();
+   private static Logger log = LoggerFactory.getLogger(AvpInfo.class);
  
    public static int getCode(String name)
    {
@@ -32,9 +33,8 @@ import org.slf4j.LoggerFactory;
  
    public static String getName(int code)
    {
-	        Logger logger = Logger.getLogger(AvpInfo.class.getName());
     String[] v = getValue(code);
-            //logger.info("getName() .. getValue("+code+")=>"+v);
+    //log.info("getName() .. getValue("+code+")=>"+v);
     return (v != null) && (v.length > 0) ? v[0].trim() : null;
    }
  
@@ -72,36 +72,35 @@ import org.slf4j.LoggerFactory;
  
    private static String[] getValue(int code)
    {
-	         Logger logger = Logger.getLogger(AvpInfo.class.getName());
      if (config == null) {
-	           logger.info("getValue() config=null");
+	   log.info("getValue() config=null");
        init();
      }
      String v = (String)config.get(Integer.toString(code)); // robertsp
-             //logger.info("getValue() config.get("+code+")=>"+v);
+     //logger.info("getValue() config.get("+code+")=>"+v);
      return v != null ? v.split(":") : null;
    }
  
    private static void init()
    {
-	         Logger myLogger = Logger.getLogger(AvpInfo.class.getName());
      try {
        config = ConfigParserProperties.parseFile("conf/avpinfo.properties");
      } catch (IOException ex) {
-       Logger.getLogger(AvpInfo.class.getName()).log(Level.SEVERE, null, ex);
+       log.error("IOException parseFile(conf/avpinfo.properties"+ ex.toString());
        return;
      }
  
      Properties props = config.getProperties();
  
-             myLogger.info("AvpInfo.init() avpinfo.properties[]="+props);
-             if(names==null)myLogger.info("names=NULL!!");
+     log.info("AvpInfo.init() avpinfo.properties[]="+props); // list AVP dictionary!
+     if(names==null)log.info("names=NULL!!");
+             
      for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
      {
        String key = (String)e.nextElement();
-                String value = getName(Integer.parseInt(key));
-                //myLogger.info("key:value="+key+":"+value);
-                names.put(value,key); // robertsp value, key -- to allow name to code lookups!!
+       String value = getName(Integer.parseInt(key));
+       //log.info("key:value="+key+":"+value);
+       names.put(value,key); // robertsp value, key -- to allow name to code lookups!!
      }
    }
  }

@@ -28,7 +28,11 @@ public class DiameterUtilities {
     
     
     String reqFlag = message.isRequest() ? "R" : "A";
-    String flags = reqFlag += message.isError() ? " | E" : "";
+    String flags = (
+    	message.isRequest() ? "R" : "-") + (
+    	message.isProxiable() ? "P" : "-") + (
+    	message.isError() ? "E" : "-") + (
+    	message.isReTransmitted() ? "T" : "-") ; 
 
     if(logger.isInfoEnabled()) {
       logger.info("Message [" + flags + "] Command-Code: " + message.getCommandCode() + " / E2E(" 

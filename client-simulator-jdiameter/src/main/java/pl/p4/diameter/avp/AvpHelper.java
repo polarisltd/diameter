@@ -170,17 +170,19 @@ import pl.p4.diameter.client.jDiamClient;
      AvpType type = AvpType.valueOf(avpType);
      Object val = getValue(avp, lvl);
  
-     //if ((type == AvpType.Unsigned32) || (type == AvpType.Enumerated))
-     //{
-       //if ((val != null) && (!val.equals("???")) && (!val.startsWith("{")))
-       //{
-       //  String d = AvpInfo.getValueDesc(avp.getCode(), Integer.parseInt(val));
+     if ((type == AvpType.Unsigned32) || (type == AvpType.Enumerated))
+     {
+       //if ((val != null) && (!"???".equals(val)) && (!val.startsWith("{")))
+       if (val != null)
+       {
+
+    	 String d = AvpInfo.getValueDesc(avp.getCode(), Integer.parseInt((String)val.toString()));
  
-       //  return d + "(" + val + ")";
-       //}
-     //}
+         return d + "(" + val + ")";
+       }
+     }
  
-     return "[getValueWithDesc]";
+     return val.toString();
    }
  
    public static Object getValue(AvpSet avpSet, int avpCode, int lvl)  // robertsp, changed return type to Object
@@ -219,13 +221,13 @@ import pl.p4.diameter.client.jDiamClient;
        if (type == AvpType.Integer64)
          return avp.getInteger64();
        if (type == AvpType.Unsigned32)
-         return avp.getUnsigned32();
+         return avp.getUnsigned32(); //long
        if (type == AvpType.Unsigned64)
-         return avp.getUnsigned64();
+         return avp.getUnsigned64(); //long
        if (type == AvpType.Grouped)
          return "{\n" + getAvpSetAsString(avp.getGrouped(), lvl + 1) + getTab(lvl) + "}";
        if (type == AvpType.Enumerated)
-         return avp.getInteger32();
+         return avp.getInteger32(); // int
        if (type == AvpType.OctetString)
          return avp.getOctetString();
        if (type == AvpType.Time)

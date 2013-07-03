@@ -17,88 +17,87 @@
  
  public class Scenario extends Step
  {
-/*  29 */   private static Logger log = LoggerFactory.getLogger(Scenario.class);
-/*  30 */   private static String errParsing = "Scenario file parsing failed";
+   private static Logger log = LoggerFactory.getLogger(Scenario.class);
+   private static String errParsing = "Scenario file parsing failed";
  
-/*  32 */   public static Object finished = new Object();
-/*  33 */   private static int sessionCtr = 0;
+   public static Object finished = new Object();
+   private static int sessionCtr = 0;
  
-/*  35 */   public Session session = null;
-/*  36 */   public Answer lastAnswer = null;
+   public Session session = null;
+   public Answer lastAnswer = null;
    private AbstractList<Step> steps;
  
    public Scenario(String fname)
      throws IOException
    {
-/*  41 */     super(fname, 1, RepeatType.SEQUENCE);
+     super(fname, 1, RepeatType.SEQUENCE);
  
-/*  43 */     load(fname);
+     load(fname);
    }
  
    public Scenario(String fname, int repeat, RepeatType type) throws IOException {
-/*  47 */     super(fname, repeat, type);
+     super(fname, repeat, type);
  
-/*  49 */     load(fname);
+     load(fname);
    }
  
    public void load(String fname) throws IOException {
-/*  53 */     log.info("Loading scneario: " + this.name + " " + this.type + ":" + this.repeat);
+     log.info("Loading scneario: " + this.name + " " + this.type + ":" + this.repeat);
  
-/*  55 */     Configuration scnConfig = ConfigParserProperties.parseFile(fname);
+     Configuration scnConfig = ConfigParserProperties.parseFile(fname);
  
-/*  57 */     Properties props = scnConfig.getProperties();
+     Properties props = scnConfig.getProperties();
  
-/*  59 */     build(props);
+     build(props);
    }
  
    public void run(SessionFactory factory) throws Exception {
-/*  63 */     startScenario();
+     startScenario();
  
-/*  65 */     log.info("Running scenario: " + this.name + " " + this.type + ":" + this.repeat);
+     log.info("Running scenario: " + this.name + " " + this.type + ":" + this.repeat);
  
-/*  67 */     for (int i = 0; i < this.repeat; i++) {
-/*  68 */       log.trace("Creating Diameter sesssion");
-/*  69 */       this.session = factory.getNewSession();
+     for (int i = 0; i < this.repeat; i++) {
+       log.trace("Creating Diameter sesssion");
+       this.session = factory.getNewSession();
  
-/*  72 */       ListIterator it = this.steps.listIterator();
-/*  73 */       while (it.hasNext()) {
-/*  74 */         Step step = (Step)it.next();
+       ListIterator it = this.steps.listIterator();
+       while (it.hasNext()) {
+         Step step = (Step)it.next();
  
-/*  76 */         if ((step instanceof Scenario)) {
-/*  77 */           Scenario scn = (Scenario)step;
-/*  78 */           if (scn.type == RepeatType.SEQUENCE) {
-/*  79 */             log.info("[SCN: " + scn.name + "] Running SEQ:" + (i + 1));
+         if ((step instanceof Scenario)) {
+           Scenario scn = (Scenario)step;
+           if (scn.type == RepeatType.SEQUENCE) {
+             log.info("[SCN: " + scn.name + "] Running SEQ:" + (i + 1));
  
-/*  81 */             scn.run(factory);
+             scn.run(factory);
            }
            else {
-/*  84 */             log.info("[SCN: " + scn.name + "] Running MULTI:" + (i + 1));
+             log.info("[SCN: " + scn.name + "] Running MULTI:" + (i + 1));
  
-/*  86 */             new SessionThread(scn, factory).start();
+             new SessionThread(scn, factory).start();
            }
          }
-/*  89 */         else if ((step instanceof Message)) {
-/*  90 */           Message msg = (Message)step;
-/*  91 */           log.info("Sending message: " + msg.name + " " + msg.type + ":" + msg.repeat);
+         else if ((step instanceof Message)) {
+           Message msg = (Message)step;
+           log.info("Sending message: " + msg.name + " " + msg.type + ":" + msg.repeat);
  
-/*  93 */           this.lastAnswer = ((Message)step).run(this.session, this.lastAnswer);
+           this.lastAnswer = ((Message)step).run(this.session, this.lastAnswer);
  
 
-                  if(this.lastAnswer==null){
-                	  log.info("Answer received: NULL"); 
-                  }else{
-                  
-
-/*  95 */           int resCode = this.lastAnswer.getResultCode().getInteger32();
+           if(this.lastAnswer==null){
+              log.info("Answer received: NULL. Scenario execution stopped"); 
+              break;
+           }else{
+              int resCode = this.lastAnswer.getResultCode().getInteger32();
  
-/*  97 */           log.info("Answer received: ResultCode=" + 
-/*  98 */             AvpHelper.getValueWithDesc(this.lastAnswer.getResultCode(), 0));
- 
-           if (resCode != 2001) {
-             log.error("Result code: " + resCode + ". Scenario execution stopped");
-             break;
+              //log.info("Answer received: ResultCode=" + resCode);
+              log.info("Answer received: ResultCode=" + 
+              AvpHelper.getValueWithDesc(this.lastAnswer.getResultCode(), 0));
+              if (resCode != 2001) {
+                  log.error("Result code: " + resCode + ". Scenario execution stopped");
+                  break;
+              }
            }
-                   }
 
          }
          else if ((step instanceof Wait)) {
@@ -146,7 +145,7 @@
        this.steps.clear();
      }
      for (int i = 1; i <= props.size(); i++) {
-	            String s = Integer.toString(i);
+	     String s = Integer.toString(i);
        if (!parseLine(props.getProperty(s))) {
          return false;
        }

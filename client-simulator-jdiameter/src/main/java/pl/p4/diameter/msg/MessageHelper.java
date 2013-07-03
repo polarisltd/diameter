@@ -3,9 +3,12 @@
  import java.io.File;
  import java.io.IOException;
  import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
  import java.net.InetAddress;
  import java.net.UnknownHostException;
  import java.util.ArrayList;
+import java.util.Arrays;
  import java.util.Date;
  import java.util.Iterator;
  import javax.xml.parsers.DocumentBuilder;
@@ -30,7 +33,7 @@
  import org.xml.sax.SAXException;
  import pl.p4.diameter.avp.AvpHelper;
  import pl.p4.diameter.avp.AvpInfo;
- import pl.p4.diameter.client.jDiamClient;
+import pl.p4.diameter.client.jDiamClient;
  
  public class MessageHelper
  {
@@ -56,7 +59,7 @@
        }
      } catch (Exception e) {
 	   log.debug("getting into catch at message send!");
-       e.printStackTrace();
+	   log.error(printStackTrace(e));
      }  
        long stopTime = System.currentTimeMillis();
        if (listener.hasAnswer()) {
@@ -146,17 +149,7 @@
  
    private static void overwriteAVPS(AvpSet avpSet)
    {
-     String msisdn = jDiamClient.getMSISDN();
-     if (msisdn != null) {
-       try {
-         AvpSet sub = avpSet.getAvp(Avp.SUBSCRIPTION_ID).getGrouped(); //443
-         sub.removeAvp(Avp.SUBSCRIPTION_ID_DATA); //444
-         sub.addAvp(Avp.SUBSCRIPTION_ID_DATA, msisdn, true, false, false); //444
-       } catch (AvpDataException e) {
-         e.printStackTrace();
-       }
- 
-     }
+     String msisdn = jDiamClient.getMSISDN(); // not using now!
  
      if (jDiamClient.getAutomaticRN()) {
        avpSet.removeAvp(Avp.CC_REQUEST_NUMBER); //415
@@ -166,34 +159,65 @@
      ArrayList ovrAvp = jDiamClient.getOvrAvps();
      for (Iterator i = ovrAvp.iterator(); i.hasNext(); ) {
        String[] a = ((String)i.next()).split("=");
- 
-       if (a[0].toLowerCase().equals("rating-group")) {
+
+       
+       if (a[0].toLowerCase().equals("anum")) {
+    	   log.debug("Updating ANUM");
+           try {
+             AvpSet sub = avpSet.getAvp(Avp.SUBSCRIPTION_ID).getGrouped(); //443
+             sub.removeAvp(Avp.SUBSCRIPTION_ID_DATA); //444
+             sub.addAvp(Avp.SUBSCRIPTION_ID_DATA, a[1], true, false, false); //444
+           } catch (AvpDataException e) {
+        	   log.error("Subscription-Id-Data: \n"+Arrays.toString(e.getStackTrace()));
+           }
+           //avp.
+           // 
+           try{
+               AvpSet sub = avpSet.getAvp(Avp.SERVICE_INFORMATION).getGrouped().getAvp(Avp.MMS_INFORMATION).getGrouped().getAvp(Avp.ORIGINATOR_ADDRESS).getGrouped();
+               sub.removeAvp(Avp.ADDRESS_DATA,10415L); //444
+               //sub.
+               sub.addAvp(Avp.ADDRESS_DATA, a[1], 10415L, true, false, false); 
+             } catch (Exception e) { 
+          	   log.error("Originator-Address: "+Arrays.toString(e.getStackTrace()));         	   
+             }
+           log.debug("ANUM: "+a[1]);
+         }else if (a[0].toLowerCase().equals("rating-group")) {
          try {
            AvpSet sub = avpSet.getAvp(Avp.MULTIPLE_SERVICES_CREDIT_CONTROL).getGrouped(); //456
            sub.removeAvp(Avp.RATING_GROUP); //432
            sub.insertAvp(0, Avp.RATING_GROUP, Integer.parseInt(a[1]), true, false);
-         } catch (AvpDataException e) {
-           e.printStackTrace();
+         } catch (Exception e) {
+             log.error("Rating-Group: "+Arrays.toString(e.getStackTrace()));
          }
        } else if (a[0].toLowerCase().equals("called-station-id")) {
          try {
-           AvpSet sub = avpSet.getAvp(Avp.SERVICE_INFORMATION).getGrouped().getAvp(Avp.PS_INFORMATION).getGrouped(); //873,874
+           AvpSet sub = avpSet.getAvp(Avp.SERVICE_INFORMATION).getGrouped().getAvp(Avp.PS_INFORMATION).getGrouped(); 
            sub.removeAvp(30);//CALLED_STATION_ID
            sub.addAvp(30, a[1], 10415L, true, false, false);
-         } catch (AvpDataException e) {
-           e.printStackTrace();
+         } catch (Exception e) {
+        	 log.error("Called-Station-Id: "+Arrays.toString(e.getStackTrace()));
          }
-       } else {
-         if (!a[0].toLowerCase().equals("sgsn-address")) continue;
+       } else if (a[0].toLowerCase().equals("sgsn-address")){
          try {
-           AvpSet sub = avpSet.getAvp(Avp.SERVICE_INFORMATION).getGrouped().getAvp(Avp.PS_INFORMATION).getGrouped(); //873,874
+           AvpSet sub = avpSet.getAvp(Avp.SERVICE_INFORMATION).getGrouped().getAvp(Avp.PS_INFORMATION).getGrouped(); 
            sub.removeAvp(Avp.SGSN_ADDRESS);//1228 SGSN_ADDRESS 
            sub.addAvp(Avp.SGSN_ADDRESS, InetAddress.getByName(a[1]), 10415L, true, false);//1228
          } catch (AvpDataException e) {
-           e.printStackTrace();
+           log.error("SGSN-Address: "+Arrays.toString(e.getStackTrace()));
          } catch (UnknownHostException e) {
-           e.printStackTrace();
+           log.error("SGSN-Address: "+Arrays.toString(e.getStackTrace()));
          }
+         
+       }else if (a[0].toLowerCase().equals("bnum")) {
+    	   try{
+                  AvpSet sub = avpSet.getAvp(Avp.SERVICE_INFORMATION).getGrouped().getAvp(Avp.MMS_INFORMATION).getGrouped().getAvp(Avp.RECIPIENT_ADDRESS).getGrouped();
+                  sub.removeAvp(Avp.ADDRESS_DATA,10415L); //444
+                  sub.addAvp(Avp.ADDRESS_DATA, a[1], 10415L, true, false, false); 
+                } catch (Exception e) {
+             	   log.error("BNUM: "+Arrays.toString(e.getStackTrace()));
+                }
+    	        log.debug("BNUM: "+a[1]);
+
        }
      }
    }
@@ -449,7 +473,14 @@
  
      return doc;
    }
- 
+
+   private static   String printStackTrace(Exception ex){
+     StringWriter errors = new StringWriter();
+     ex.printStackTrace(new PrintWriter(errors)); 
+     return errors.toString();   
+   }
+   
+   
    private static class MySessionEventListener implements EventListener<Request, Answer>
    {
      private Answer answer = null;

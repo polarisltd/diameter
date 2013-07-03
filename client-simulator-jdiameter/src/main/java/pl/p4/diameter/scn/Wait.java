@@ -5,7 +5,7 @@
  
  public class Wait extends Step
  {
-/*  7 */   private static Logger log = LoggerFactory.getLogger(Wait.class);
+   private static Logger log = LoggerFactory.getLogger(Wait.class);
    public int duration;
  
    public Wait(int duration)

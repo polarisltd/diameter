@@ -2,9 +2,9 @@
 <Configuration xmlns="http://www.jdiameter.org/jdiameter-server">
 
   <LocalPeer>
-    <URI value="aaa://172.16.133.121:3868" />
+    <URI value="aaa://prepaidxx:3878" />
     <IPAddresses>
-      <IPAddress value="172.16.133.121" />
+      <IPAddress value="172.16.133.122" />
     </IPAddresses>
     <Realm value="prepaid.xx" />
     <VendorID value="10415" />
