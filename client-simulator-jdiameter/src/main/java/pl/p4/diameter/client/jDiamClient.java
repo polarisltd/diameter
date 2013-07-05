@@ -3,6 +3,8 @@
  import java.io.File;
  import java.io.IOException;
  import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
  import java.net.URI;
  import java.net.URISyntaxException;
  import java.net.URL;
@@ -47,9 +49,9 @@ import pl.p4.diameter.scn.Scenario;
      throws IOException, URISyntaxException
    {
      PropertyConfigurator.configure("conf/log4j.properties");
-     printLogo();
+
      if ((args == null) || (args.length < 1)) {
-       log.error("No scenario file");
+       log.error("No scenario file. Please use parameter --help for more info.");
        return;
      }
  
@@ -65,14 +67,15 @@ import pl.p4.diameter.scn.Scenario;
          return;
        }if (args[0].equals("--help")) {
          System.out.println("./run [-n] [-a avp=val] [-c config.xml]  scenario_file [MSISDN]");
-         System.out.println("      \t\t  MSISDN ## Service-Information/MMS-Information/Originator-Address/Address-Data ## Subscription-Id/Subscription-Id-Data");         
          System.out.println("   OPTION:");
          System.out.println("      -n\tautomatic request number");
          System.out.println("      -a\toverwrite of AVP, currently are supported: ");
          System.out.println("      \t\t  Rating-Group");
          System.out.println("      \t\t  Called-Station-Id");
          System.out.println("      \t\t  SGSN-Address");
+         System.out.println("      \t\t  ANUM ## Service-Information/MMS-Information/Originator-Address/Address-Data ## Subscription-Id/Subscription-Id-Data");         
          System.out.println("      \t\t  BNUM ## Service-Information/MMS-Information/Recipient-Address/Address-Data");         
+         System.out.println("      \t\t  Destination-Realm");         
          System.out.println("      -c\t provide filename of config.xml");
          
          
@@ -108,13 +111,14 @@ import pl.p4.diameter.scn.Scenario;
        }
      }
  
-
+     printLogo();
+     
      config = ConfigParserProperties.parseFile("conf/diam.properties");
      try
      {
        stack = new StackImpl();
      } catch (Exception e) {
-       e.printStackTrace();
+       log.error(printStackTrace(e));
        stack.destroy();
        return;
      }
@@ -133,7 +137,7 @@ import pl.p4.diameter.scn.Scenario;
        log.info("Initiating stack");
        factory = stack.init(config);
      } catch (Exception e) {
-       e.printStackTrace();
+       log.error(printStackTrace(e));
        stack.destroy();
        return;
      }
@@ -204,18 +208,26 @@ import pl.p4.diameter.scn.Scenario;
      return ovrAvps;
    }
    static void printLogo(){
-       log.info("***************************************************************************************************\n"+
+       log.info("\n==================================logo======================================================\n"+
+"**\n"+     
 "**\n"+   
-"**                                         Running scenario: "+scenarioFile+"\n"+   
+"**     "+new Timestamp(new Date().getTime())+"\n"+   
 "**\n"+   
-"**                                         "+new Timestamp(new Date().getTime())+"\n"+   
-"**\n"+   
-"**\n"+   
-"**\n"+   
-"**\n"+   
-"*********************************************************************************************************************\n");
+"**     Stack Config:     "+stackConfigFile+"\n"+
+"**\n"+  
+"**     ScenarioFile:     "+scenarioFile+"\n"+
+"**\n"+  
+"**     Overwritten AVPs: "+ovrAvps.toString()+"\n"+
+"**\n"+  
+"**\n"+  
+"==============================================================================================================\n");
    }
-   
+   private static   String printStackTrace(Exception ex){
+	     StringWriter errors = new StringWriter();
+	     ex.printStackTrace(new PrintWriter(errors)); 
+	     return errors.toString();   
+	   }
+  
    
  }
 

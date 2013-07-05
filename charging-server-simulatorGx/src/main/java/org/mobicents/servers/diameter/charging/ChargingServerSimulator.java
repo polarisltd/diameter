@@ -328,7 +328,7 @@ final int  Rating_Group=432;
       if(this.testId.equals("5") && request.getRequestTypeAVPValue()==1 ||
          this.testId.equals("6") && request.getRequestTypeAVPValue()==2){  
         try{  
-          logger.info("ETriggering test05/test06"); 
+          logger.info("Triggering test05/test06"); 
           cca = createCCA(session, request, -1, 3002);
           //cca.getMessage().setError(true); IF setError() is executed no CCA has been delivered back to client e.g. being filtered!
  
@@ -418,8 +418,8 @@ final int  Rating_Group=432;
           }
           else {
             // Check if not first request, should have Used-Service-Unit AVP
-            if(ccrAvps.getAvp(415) != null && ccrAvps.getAvp(Avp.CC_REQUEST_NUMBER).getUnsigned32() >= 1) {
-              Avp usedServiceUnit = ccrAvps.getAvp(446);
+            if(ccrAvps.getAvp(Avp.CC_REQUEST_NUMBER) != null && ccrAvps.getAvp(Avp.CC_REQUEST_NUMBER).getUnsigned32() >= 1) {
+              Avp usedServiceUnit = ccrAvps.getAvp(Avp.USED_SERVICE_UNIT);
               if(usedServiceUnit != null) {
                 Long wereReserved = reserved.remove(subscriptionId + "_" + serviceContextId);
                 wereReserved = wereReserved == null ? 0 : wereReserved; 
@@ -445,7 +445,8 @@ final int  Rating_Group=432;
 
             // Check if the user has no more credit
             if(balance <= 0 ||  ((this.testId.equals("3")||this.testId.equals("2"))&& request.getRequestTypeAVPValue()==2 && requestNumber==2)) {
-              // 8.34.  Final-Unit-Indication AVP
+              logger.info("triggered test2 or test3 FUI or balance<=0");
+            	// 8.34.  Final-Unit-Indication AVP
               // 
               // The Final-Unit-Indication AVP (AVP Code 430) is of type Grouped and
               // indicates that the Granted-Service-Unit AVP in the Credit-Control-

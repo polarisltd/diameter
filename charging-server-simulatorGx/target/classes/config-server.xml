@@ -13,7 +13,7 @@
     <OverloadMonitor>
       <Entry index="1" lowThreshold="0.5" highThreshold="0.6">
                 <ApplicationID>
-                    <VendorId value="10415" /> 
+                    <VendorId value="0" /> 
                     <AuthApplId value="4" /> <!-- Should be in AcctApplId, but is not for some reason.... -->
                     <AcctApplId value="0" />
                 </ApplicationID>
@@ -44,7 +44,7 @@
     <Realms>
       <Realm name="emblacom.com" peers="172.16.133.122" local_action="LOCAL" dynamic="false" exp_time="1">
                 <ApplicationID>
-                    <VendorId value="10415" /> 
+                    <VendorId value="0" /> 
                     <AuthApplId value="4" /> <!-- Should be in AcctApplId, but is not for some reason.... -->
                     <AcctApplId value="0" />
                 </ApplicationID>

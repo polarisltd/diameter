@@ -160,8 +160,16 @@ import pl.p4.diameter.client.jDiamClient;
      for (Iterator i = ovrAvp.iterator(); i.hasNext(); ) {
        String[] a = ((String)i.next()).split("=");
 
-       
-       if (a[0].toLowerCase().equals("anum")) {
+ 
+       if (a[0].toLowerCase().equals("destination-realm")) {
+           try {
+             avpSet.removeAvp(Avp.DESTINATION_REALM);
+             avpSet.addAvp(Avp.DESTINATION_REALM, a[1],  true, false, false);
+           } catch (Exception e) {
+          	 log.error("Destination-Realm: "+Arrays.toString(e.getStackTrace()));
+           }
+         }              
+       else if (a[0].toLowerCase().equals("anum")) {
     	   log.debug("Updating ANUM");
            try {
              AvpSet sub = avpSet.getAvp(Avp.SUBSCRIPTION_ID).getGrouped(); //443

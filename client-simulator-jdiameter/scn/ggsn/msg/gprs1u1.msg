@@ -2,10 +2,10 @@
 
 <message CommandCode="272" request="1">
    <Destination-Realm mandatory="1">emblacom.com</Destination-Realm>
-   <Vendor-Specific-Application-Id mandatory="1">
+   <!--Vendor-Specific-Application-Id mandatory="1">
       <Vendor-Id mandatory="1">10415</Vendor-Id>
       <Auth-Application-Id mandatory="1">4</Auth-Application-Id>
-   </Vendor-Specific-Application-Id>
+   </Vendor-Specific-Application-Id-->
    <Subscription-Id mandatory="1">
       <Subscription-Id-Type mandatory="1">0</Subscription-Id-Type>
       <Subscription-Id-Data mandatory="1">5493512017703</Subscription-Id-Data>
