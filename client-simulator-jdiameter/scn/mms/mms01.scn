@@ -1,3 +1,3 @@
-1 = LOG: This is MMS
+1 = LOG: This is single MMS
 2 = MSG:scn/mms/msg/mms.msg
 3 = WAIT:2000

@@ -46,7 +46,7 @@ import pl.p4.diameter.client.jDiamClient;
    {
      Request request = (Request)createMessageFromXML(session, fname, prevAnswer);
  
-     log.debug("Message to be sent={\n" + getMessageAsString(request) + "}");
+     log.info("Message to be sent={\n" + getMessageAsString(request) + "}");
  
      MySessionEventListener listener = new MySessionEventListener(); // robertsp
  
@@ -61,18 +61,17 @@ import pl.p4.diameter.client.jDiamClient;
 	   log.debug("getting into catch at message send!");
 	   log.error(printStackTrace(e));
      }  
-       long stopTime = System.currentTimeMillis();
-       if (listener.hasAnswer()) {
+     long stopTime = System.currentTimeMillis();
+     if (listener.hasAnswer()) {
          Answer answer = listener.getAnswer();
-         log.debug("Answer received after " + (stopTime - startTime) + "ms");
-         log.debug("Received message={\n" + getMessageAsString(answer) + "}");
+         log.info("Answer received after " + (stopTime - startTime) + "ms");
+         log.info("Received message={\n" + getMessageAsString(answer) + "}");
          return answer;
-       }else
+     }else
          log.error("Can not find answer!");
-     //}
-       stopTime = System.currentTimeMillis();
-       log.debug("Normal return from message sent, probably no answer " + (stopTime - startTime) + "ms");
-       return null;
+     stopTime = System.currentTimeMillis();
+     log.debug("Normal return from message sent, probably no answer " + (stopTime - startTime) + "ms");
+     return null;
    }
  
    public static String getMessageAsString(Message msg)

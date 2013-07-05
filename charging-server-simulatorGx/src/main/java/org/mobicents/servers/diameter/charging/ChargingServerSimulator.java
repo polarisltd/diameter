@@ -128,13 +128,20 @@ final int  Rating_Group=432;
 //      this.setup = su;
         int port=8088;
         String path = "/test"; // path starting from slash (/)
+        String path2 = "/set";
         InetSocketAddress addr = new InetSocketAddress(port);
         HttpServer server = HttpServer.create(addr, 0);
         //server.createContext(path, this);
         HttpContext context = server.createContext(path, this);
         context.getFilters().add(new ParameterFilter());
+        //
+        context = server.createContext(path2, this);
+        context.getFilters().add(new ParameterFilter());
+
 
         logger.info("HttpServer host:"+addr.toString()+path);
+        logger.info("HttpServer host:"+addr.toString()+path2);
+        
         server.setExecutor(null); // creates a default executor
         server.start();
         //
@@ -177,6 +184,11 @@ final int  Rating_Group=432;
 
         public void handle(HttpExchange t) throws IOException {
 
+        	
+        String path = t.getHttpContext().getPath(); 
+
+        if(path.equals("/test")){        	
+        	        	
         Map<String, String> testOption = new HashMap<String, String>();    
         testOption.put("0", "Test reset");
         testOption.put("2", "FUI redirectAction=0 at CCA CC-Request-Type=2 and CC-Request-Number=2");
@@ -193,7 +205,6 @@ final int  Rating_Group=432;
             //
             Map params = (Map)t.getAttribute("parameters");
 
-            String path = t.getHttpContext().getPath(); 
             String title="";
             logger.info("HTTP request  path:"+path+"   attrib:"+params.toString()+" "+new Timestamp(d.getTime()));
             if(!params.containsKey("id")){
@@ -210,6 +221,30 @@ final int  Rating_Group=432;
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
+        }else if(path.equals("/set")){  
+        	Map params = (Map)t.getAttribute("parameters");
+        	String accountName =  null; 
+        	String balance =  null; 
+        	String text = "usage: /set?u=75757575&b=200\n set balance 200 to sunscriber 75757575\n";
+        	  if(params.containsKey("u")){
+        		  accountName =  (String)params.get("u"); // class instance variable
+        	  }
+        	  if(params.containsKey("b")){
+        		  balance =  (String)params.get("b"); // class instance variable
+        	  }
+        	  if(accountName!=null &&  balance!=null){
+        		  accounts.put(accountName, Long.valueOf(balance)); 
+        		  text = "Subsciber "+accountName+" balance:"+ balance;
+        		  
+        	  }
+              String response = ""+new Timestamp(new java.util.Date().getTime())+" "+params.toString()+"\n"+text+" \n"+accounts.toString();
+              //
+              t.sendResponseHeaders(200, response.length());
+              OutputStream os = t.getResponseBody();
+              os.write(response.getBytes());
+              os.close();       	
+        	
+        }
         }
 
 
@@ -526,7 +561,7 @@ final int  Rating_Group=432;
               //   according to the IP packet filters identified by the Filter-Id
               //   AVP.  All the packets not matching the filters MUST be dropped
               //   (see section 5.6.3).
-              long fuiAction=0;
+              short fuiAction=0;
               if( this.testId.equals("3"))fuiAction=1; 
               finalUnitIndicationAvp.addAvp(Avp.FINAL_UNIT_ACTION, fuiAction);
               if (fuiAction==1){ // 1=redirect
