@@ -106,6 +106,13 @@
          else if ((step instanceof Log)) {
            ((Log)step).run();
          }
+         else if ((step instanceof HttpGet)) {
+             ((HttpGet)step).run();
+           }
+         else if ((step instanceof HttpC)) {
+             ((HttpC)step).run();
+           }
+
        }
  
      }
@@ -160,8 +167,15 @@
        arg1 = new String[2];
        arg1[0] = "LOG";
        arg1[1] = line.split(":")[1];
-     }
-     else {
+     }else if (line.startsWith("HTTPGET:")) {
+    	       arg1 = new String[2];
+    	       arg1[0] = "HTTPGET";
+    	       arg1[1] = line.substring(line.indexOf(":")+1);
+     }else if (line.startsWith("HTTPC:")) {
+       arg1 = new String[2];
+       arg1[0] = "HTTPC";
+       arg1[1] = line.substring(line.indexOf(":")+1);
+     }else {
        args = line.split(" ");
        if (args.length > 2) {
          log.error(errParsing + ": incorrect number of parameters");
@@ -213,6 +227,10 @@
      }
      else if (arg1[0].equals("LOG")) {
        this.steps.add(new Log(arg1[1]));
+     }else if (arg1[0].equals("HTTPGET")) {
+           this.steps.add(new HttpGet(arg1[1]));
+     }else if (arg1[0].equals("HTTPC")) {
+         this.steps.add(new HttpC(arg1[1]));      
      } else {
        log.error(errParsing + ": unknown command [" + arg1[0] + "]");
        return false;

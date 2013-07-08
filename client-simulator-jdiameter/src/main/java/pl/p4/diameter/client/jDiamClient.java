@@ -11,6 +11,7 @@ import java.io.StringWriter;
  import java.security.CodeSource;
  import java.security.ProtectionDomain;
  import java.util.ArrayList;
+import java.util.Arrays;
  import java.util.Date;
  import java.util.concurrent.TimeUnit;
  import java.util.jar.Attributes;
@@ -178,7 +179,7 @@ import pl.p4.diameter.scn.Scenario;
        log.info("Scenario executed in " + duration / 1000.0D + " s");
      }
      catch (Exception ex) {
-       log.error(null, ex);
+       log.error("Scenario execution:  "+Arrays.toString(ex.getStackTrace()));
      }
      try
      {
