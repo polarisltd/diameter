@@ -1,0 +1,4 @@
+1 = LOG: test balance
+2 = HTTPGET: http://testblade04:8088/set
+3 = HTTPC: http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
+

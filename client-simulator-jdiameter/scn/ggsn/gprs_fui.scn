@@ -1,0 +1,6 @@
+1 = LOG: *** Testing FUI. Setup prepaid sim to respond FUI (test#2)  
+2 = LOG: *** subscriber 5493512017703 user-id:34
+3 = HTTPGET: http://testblade04:8088/set?u=54829241905&b=2
+4 = HTTPGET: http://testblade04:8088/test?id=2
+5 = SCN:scn/ggsn/gprs1.scn
+
