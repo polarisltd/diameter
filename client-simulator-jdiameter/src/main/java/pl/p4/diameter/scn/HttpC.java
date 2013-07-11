@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -42,10 +44,19 @@ import org.slf4j.LoggerFactory;
    GetMethod get=null;
    try{
 
-	 user="embla";
-     pass="teligent";
-     
-     url = this.arguments; 
+     ArrayList<String>	lineOpts = splitWords(this.arguments," ");
+     if(lineOpts.size()==2){
+        url = lineOpts.get(1); 
+        ArrayList<String> userpass = splitWords(lineOpts.get(0),":");
+        if (userpass.size()==2){
+               user=userpass.get(0);	
+               pass=userpass.get(1);	            	
+        }
+      }else{    
+        	url = lineOpts.get(0);         	
+      }
+	  log.debug("HTTPC user:"+user+ "  pass"+pass+ "  url:"+url); 
+	   	  	   
      
      HttpClient client = new HttpClient();
      // an arbitrary realm or host change the appropriate argument to null.
@@ -81,5 +92,16 @@ import org.slf4j.LoggerFactory;
 
     
    }//run()
+   
+ArrayList<String>   splitWords(String s,String regex){
+	StringTokenizer st = new StringTokenizer(s,regex);
+	ArrayList<String> words = new ArrayList<String>();
+	while(st.hasMoreTokens()){
+	  words.add(st.nextToken());
+	}
+    return words;
+}
+   
+   
  }
 

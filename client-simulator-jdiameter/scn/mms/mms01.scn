@@ -1,6 +1,7 @@
-1 = LOG: This is single MMS w http
+1 = LOG: This is single MMS subscription-id: 5493512017703 user-id:
 2 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2
-3 = HTTPC: http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
-4 = MSG:scn/mms/msg/mms.msg
-5 = HTTPGET: http://testblade04:8088/set
-6 = HTTPC: http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
+3 = HTTPC: embla:teligent http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
+4 = CBSET: http://172.16.133.122:8091/pools/ Counters embla 154:m:n:l 4
+5 = MSG:scn/mms/msg/mms.msg
+6 = HTTPGET: http://testblade04:8088/set
+7 = HTTPC: http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test

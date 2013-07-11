@@ -112,6 +112,9 @@
          else if ((step instanceof HttpC)) {
              ((HttpC)step).run();
            }
+         else if ((step instanceof CBSet)) {
+             ((CBSet)step).run();
+           }
 
        }
  
@@ -163,18 +166,25 @@
    private boolean parseLine(String line) throws IOException {
      log.trace("Parsing line: " + line);
      String[] args = null; String[] arg1 = null; String[] arg2 = null;
-     if (line.startsWith("LOG:")) {
+     if (line.startsWith("#")) {
+    	log.info("Comment line, ignored!");
+        return true;
+     }else if (line.startsWith("LOG:")) {
        arg1 = new String[2];
        arg1[0] = "LOG";
        arg1[1] = line.split(":")[1];
      }else if (line.startsWith("HTTPGET:")) {
-    	       arg1 = new String[2];
-    	       arg1[0] = "HTTPGET";
-    	       arg1[1] = line.substring(line.indexOf(":")+1);
+       arg1 = new String[2];
+       arg1[0] = "HTTPGET";
+       arg1[1] = line.substring(line.indexOf(":")+1);
      }else if (line.startsWith("HTTPC:")) {
        arg1 = new String[2];
        arg1[0] = "HTTPC";
        arg1[1] = line.substring(line.indexOf(":")+1);
+     }else if (line.startsWith("CBSET:")) {
+       arg1 = new String[2];
+       arg1[0] = "CBSET";
+       arg1[1] = line.substring(line.indexOf(":")+1);      
      }else {
        args = line.split(" ");
        if (args.length > 2) {
@@ -231,8 +241,10 @@
            this.steps.add(new HttpGet(arg1[1]));
      }else if (arg1[0].equals("HTTPC")) {
          this.steps.add(new HttpC(arg1[1]));      
+     }else if (arg1[0].equals("CBSET")) {
+         this.steps.add(new CBSet(arg1[1]));      
      } else {
-       log.error(errParsing + ": unknown command [" + arg1[0] + "]");
+       log.info(errParsing + ": unknown command [" + arg1[0] + "]");
        return false;
      }
  

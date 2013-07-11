@@ -1,11 +1,17 @@
-1 = LOG: ******* Testing out of balance of MMS. Having 10 messages. It stops when Diameter.Result-Code!=2001 *****
-2 = SCN:scn/mms/mms01.scn
-3 = SCN:scn/mms/mms01.scn
-4 = SCN:scn/mms/mms01.scn
-5 = SCN:scn/mms/mms01.scn
-6 = SCN:scn/mms/mms01.scn
-7 = SCN:scn/mms/mms01.scn
-8 = SCN:scn/mms/mms01.scn
-9 = SCN:scn/mms/mms01.scn
-10 = SCN:scn/mms/mms01.scn
+1 = LOG: *** Testing out of balance of MMS. Having 10 messages. 
+2 = LOG: *** subscriber 5493512017703 user-id:34
+3 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2
+4 = HTTPC: embla:teligent http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
+5 = SCN:scn/mms/mms01m.scn
+6 = SCN:scn/mms/mms01m.scn
+7 = SCN:scn/mms/mms01m.scn
+8 = SCN:scn/mms/mms01m.scn
+9 = SCN:scn/mms/mms01m.scn
+10 = SCN:scn/mms/mms01m.scn
+11 = SCN:scn/mms/mms01m.scn
+12 = SCN:scn/mms/mms01m.scn
+13 = SCN:scn/mms/mms01m.scn
+14 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2
+15 = HTTPC: embla:teligent http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
+
 

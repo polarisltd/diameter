@@ -725,11 +725,7 @@ final int  Rating_Group=432;
          } else {
 
         	 
-           // Check if not first request, should have Used-Service-Unit AVP
-           //if(ccrAvps.getAvp(415) != null && ccrAvps.getAvp(415).getUnsigned32() >= 1) {
-              //Avp requestedServiceUnits = ccrAvps.getAvp(437);
-              //if(requestedServiceUnits != null) {
-            	long grantedUnits = 0;  
+             	long grantedUnits = 0;  
                 //long wereRequested = requestedServiceUnits.getGrouped().getAvp(417).getUnsigned32();
                 if(balance>requestedUnits) grantedUnits = requestedUnits;
                 else grantedUnits = balance;
@@ -741,7 +737,6 @@ final int  Rating_Group=432;
                 if(logger.isInfoEnabled()) {
                     logger.info(">> '" + subscriptionId + "' Requested " + requestedUnits + " Granted " + grantedUnits + " and remaining balance: " + balance + ").");
                 }
-              //}
               
           }
 

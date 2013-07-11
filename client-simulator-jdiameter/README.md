@@ -98,6 +98,23 @@ Scenario files are provided on commandline and having .scn extension
 
   1 = LOG: This is SMS
 
+<b> Executing http client requests / http get e.g. having parameters on url </b>
+
+  n=HTTPGET: <http_get_url>
+  n=HTTPC: [username:pass] <http_get_url>
+
+  HTTPGET uses java.net.HttpURLConnection to execute http get request. It returns output within console.
+
+  HTTPC uses apache.common.httpclient to provide basic authentification. Username:password parameter is optional but if used basic authentification is supported
+  
+  Examples: 
+
+  3 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2                             ## this example set balance for prepaid user.
+  4 = HTTPC: scott:tiger http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test   ## this example queries Couchbase Bucket from Development View
+
+
+
+
 
 
 
