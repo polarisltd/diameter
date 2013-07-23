@@ -167,8 +167,14 @@ import pl.p4.diameter.client.jDiamClient;
            } catch (Exception e) {
           	 log.error("Destination-Realm: "+Arrays.toString(e.getStackTrace()));
            }
-         }              
-       else if (a[0].toLowerCase().equals("anum")) {
+       }else if (a[0].toLowerCase().equals("destination-host")) {
+               try {
+                 avpSet.removeAvp(Avp.DESTINATION_HOST);
+                 avpSet.addAvp(Avp.DESTINATION_HOST, a[1],  true, false, false);
+               } catch (Exception e) {
+              	 log.error("Destination-Host: "+Arrays.toString(e.getStackTrace()));
+               }
+       }else if (a[0].toLowerCase().equals("anum")) {
     	   log.debug("Updating ANUM");
            try {
              AvpSet sub = avpSet.getAvp(Avp.SUBSCRIPTION_ID).getGrouped(); //443
@@ -188,7 +194,7 @@ import pl.p4.diameter.client.jDiamClient;
           	   log.error("Originator-Address: "+Arrays.toString(e.getStackTrace()));         	   
              }
            log.debug("ANUM: "+a[1]);
-         }else if (a[0].toLowerCase().equals("rating-group")) {
+       }else if (a[0].toLowerCase().equals("rating-group")) {
          try {
            AvpSet sub = avpSet.getAvp(Avp.MULTIPLE_SERVICES_CREDIT_CONTROL).getGrouped(); //456
            sub.removeAvp(Avp.RATING_GROUP); //432
@@ -484,7 +490,7 @@ import pl.p4.diameter.client.jDiamClient;
    private static   String printStackTrace(Exception ex){
      StringWriter errors = new StringWriter();
      ex.printStackTrace(new PrintWriter(errors)); 
-     return errors.toString();   
+     return ex.getMessage()+" -> "+errors.toString();   
    }
    
    

@@ -179,7 +179,7 @@ import pl.p4.diameter.scn.Scenario;
        log.info("Scenario executed in " + duration / 1000.0D + " s");
      }
      catch (Exception ex) {
-       log.error("Scenario execution:  "+Arrays.toString(ex.getStackTrace()));
+      log.error("Scenario execution:  "+ex.getMessage()+" -> "+printStackTrace(ex));
      }
      try
      {

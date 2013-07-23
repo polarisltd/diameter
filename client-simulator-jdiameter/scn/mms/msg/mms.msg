@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <message CommandCode="272" request="1">
-   <Destination-Realm mandatory="1">emblacom.com</Destination-Realm>
+   <Destination-Realm mandatory="1">change-realm</Destination-Realm>
+   <Destination-Host mandatory="1">change-host</Destination-Host>
    <!--Vendor-Specific-Application-Id>
         <Vendor-Id>10415</Vendor-Id>
         <Auth-Application-Id>4</Auth-Application-Id>

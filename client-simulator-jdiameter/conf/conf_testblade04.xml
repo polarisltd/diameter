@@ -34,10 +34,10 @@
 
     <Network>
         <Peers>
-            <Peer name="aaa://172.16.133.122:3868" rating="1"/>
+            <Peer name="aaa://testblade04.ulticom.com:3864" rating="1"/>
         </Peers>
         <Realms>
-            <Realm name ="emblacom.com" peers="172.16.133.122" local_action="LOCAL" dynamic="false" exp_time="1">
+            <Realm name ="ulticom.com" peers="aaa://testblade04.ulticom.com:3864" local_action="LOCAL" dynamic="false" exp_time="1">
                 <ApplicationID>
                  <VendorId value="0"/>
                  <AuthApplId value="4"/>

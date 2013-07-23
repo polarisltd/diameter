@@ -896,15 +896,16 @@ final int  Rating_Group=432;
     //String serverUri = "aaa://192.168.1.7:3868"; // serverURINode1 = "aaa://" + serverHost + ":" + serverPortNode1; 
 
     //ApplicationId applicationId=gxSession.getSessionAppId(); -- this creates 0,4,0
-    ApplicationId applicationId = ApplicationId.createByAuthAppId(10415L, 4L);
+    ApplicationId applicationId = ApplicationId.createByAuthAppId(0L, 4L);
     // public static ApplicationId createByAuthAppId(long vendorId, long authAppId)
 
     
     String clientReamName = request.getOriginRealm();
-    logger.info("about to new GxReAuthRequestImpl() appid:"+applicationId+" realm:"+clientReamName);
+    String clientHostName = request.getOriginHost();
+    logger.info("about to new GxReAuthRequestImpl() appid:"+applicationId+" realm:"+clientReamName+" host:"+clientHostName);
     GxReAuthRequest rar = new GxReAuthRequestImpl(gxSession.getSessions().get(0)
-        .createRequest(ReAuthRequest.code, /*getApplicationId()*/applicationId, /*getClientRealmName()*/clientReamName));
-// gxSession = org.jdiameter.api.gx.ServerGxSession
+        .createRequest(ReAuthRequest.code, /*getApplicationId()*/applicationId, /*getClientRealmName()*/clientReamName,clientHostName));
+    // gxSession = org.jdiameter.api.gx.ServerGxSession
 // gxSession.getSessions() =  interface java.util.List<org.jdiameter.api.Session>
 // gxSession.getSessions().get(0)= interface org.jdiameter.api.Session
     
@@ -929,6 +930,7 @@ final int  Rating_Group=432;
     //  { Origin-Realm }
     //  { Destination-Realm }
     //  { Destination-Host }
+    //rarAvps.addAvp(Avp.DESTINATION_HOST, clientHostName);
     //  { Re-Auth-Request-Type }
     rarAvps.addAvp(Avp.RE_AUTH_REQUEST_TYPE, reAuthRequestType);
     //  [ Session-Release-Cause ]

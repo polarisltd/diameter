@@ -76,8 +76,7 @@
  
              new SessionThread(scn, factory).start();
            }
-         }
-         else if ((step instanceof Message)) {
+         }else if ((step instanceof Message)) {
            Message msg = (Message)step;
            log.info("Sending message: " + msg.name + " " + msg.type + ":" + msg.repeat);
  
@@ -99,22 +98,19 @@
               }
            }
 
-         }
-         else if ((step instanceof Wait)) {
+         }else if ((step instanceof Wait)) {
            ((Wait)step).run();
-         }
-         else if ((step instanceof Log)) {
+         }else if ((step instanceof Log)) {
            ((Log)step).run();
-         }
-         else if ((step instanceof HttpGet)) {
+         }else if ((step instanceof HttpGet)) {
              ((HttpGet)step).run();
-           }
-         else if ((step instanceof HttpC)) {
+         }else if ((step instanceof HttpC)) {
              ((HttpC)step).run();
-           }
-         else if ((step instanceof CBSet)) {
+         }else if ((step instanceof CBSet)) {
              ((CBSet)step).run();
-           }
+         }else if ((step instanceof Rest)) {
+                 ((Rest)step).run();           
+         }
 
        }
  
@@ -181,6 +177,10 @@
        arg1 = new String[2];
        arg1[0] = "HTTPC";
        arg1[1] = line.substring(line.indexOf(":")+1);
+     }else if (line.startsWith("REST:")) {
+       arg1 = new String[2];
+       arg1[0] = "REST";
+       arg1[1] = line.substring(line.indexOf(":")+1);       
      }else if (line.startsWith("CBSET:")) {
        arg1 = new String[2];
        arg1[0] = "CBSET";
@@ -220,8 +220,7 @@
          else
            log.error(errParsing + ": unknown repeat type");
        }
-     }
-     else if (arg1[0].equals("MSG")) {
+     }else if (arg1[0].equals("MSG")) {
        if (args.length == 1) {
          this.steps.add(new Message(arg1[1]));
        } else {
@@ -231,18 +230,18 @@
          else if (arg2[0].equals("MULTI"))
            this.steps.add(new Scenario(arg1[1], rpt, RepeatType.MULTIPROCESS));
        }
-     }
-     else if (arg1[0].equals("WAIT")) {
+     }else if (arg1[0].equals("WAIT")) {
        this.steps.add(new Wait(Integer.parseInt(arg1[1])));
-     }
-     else if (arg1[0].equals("LOG")) {
+     } else if (arg1[0].equals("LOG")) {
        this.steps.add(new Log(arg1[1]));
-     }else if (arg1[0].equals("HTTPGET")) {
+     } else if (arg1[0].equals("HTTPGET")) {
            this.steps.add(new HttpGet(arg1[1]));
-     }else if (arg1[0].equals("HTTPC")) {
+     } else if (arg1[0].equals("HTTPC")) {
          this.steps.add(new HttpC(arg1[1]));      
-     }else if (arg1[0].equals("CBSET")) {
-         this.steps.add(new CBSet(arg1[1]));      
+     } else if (arg1[0].equals("CBSET")) {
+         this.steps.add(new CBSet(arg1[1]));    
+     } else if (arg1[0].equals("REST")) {
+         this.steps.add(new Rest(arg1[1]));        
      } else {
        log.info(errParsing + ": unknown command [" + arg1[0] + "]");
        return false;

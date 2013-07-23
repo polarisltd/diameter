@@ -93,7 +93,7 @@ import net.spy.memcached.internal.OperationFuture;
 //            System.out.println(entry.getValue().toString());
 //        }
 
-                log.info("CBSET: "+cbKey+" set ok? "+result);
+                log.info("CBSET: "+cbKey+" := "+cbValue+" isOK:"+result);
                 done=true;
 	 }catch(Exception e){
 		log.error("CBSET: "+Arrays.toString(e.getStackTrace()));

@@ -1,9 +1,9 @@
 1 = LOG: *** Testing out of balance of MMS. Having 10 messages. 
 2 = LOG: *** subscriber 5493512017703 user-id:34
-3 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2
-4 = HTTPC: embla:teligent http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
-5 = SCN:scn/mms/mms01m.scn
-6 = SCN:scn/mms/mms01m.scn
+3 = CBSET: http://172.16.133.122:8091/pools/ Counters embla 34:m:n:c 10
+4 = CBSET: http://172.16.133.122:8091/pools/ Counters embla 34:m:n:l 13
+5 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=3
+6 = HTTPC: adl:adl http://testblade04:8081/webservices/rest/atl/users/34/
 7 = SCN:scn/mms/mms01m.scn
 8 = SCN:scn/mms/mms01m.scn
 9 = SCN:scn/mms/mms01m.scn
@@ -11,7 +11,10 @@
 11 = SCN:scn/mms/mms01m.scn
 12 = SCN:scn/mms/mms01m.scn
 13 = SCN:scn/mms/mms01m.scn
-14 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2
-15 = HTTPC: embla:teligent http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
+14 = SCN:scn/mms/mms01m.scn
+15 = SCN:scn/mms/mms01m.scn
+16 = HTTPGET: http://testblade04:8088/set
+17 = HTTPC: adl:adl http://testblade04:8081/webservices/rest/atl/users/34/
+
 
 

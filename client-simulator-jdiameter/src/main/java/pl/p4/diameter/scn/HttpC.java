@@ -1,6 +1,7 @@
 package pl.p4.diameter.scn;
  
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -81,8 +82,34 @@ import org.slf4j.LoggerFactory;
          int status = client.executeMethod( get );
 
          // print the status and response
-         //System.out.println(status + "\n" + get.getResponseBodyAsString());
-         log.info("HTTPC: ["+ url+ "] "+status+" => "+ get.getResponseBodyAsString());
+         InputStream is = get.getResponseBodyAsStream();
+         StringBuffer response = new StringBuffer();
+         if(is!=null){
+           BufferedReader in = new BufferedReader(
+                 new InputStreamReader(is));
+           String inputLine;
+           //
+           while ((inputLine = in.readLine()) != null) {
+                 response.append(inputLine+"\n");
+           }
+           in.close();
+         }
+         // insert line breaks at each end tag.
+         int e=0;
+         while(true){
+           int s = response.indexOf("</",e);
+           if (s<0)break;
+           else{
+        	 e = response.indexOf(">",s); 
+        	 if (e<0)break;
+        	 response.insert(e+1,'\n');
+           }
+           
+         }
+         //
+         
+         log.info("HTTPC: ["+ url+ "] ("+ status+ ") => "+response.toString());
+         // log.info("HTTPC: ["+ url+ "] "+status+" => "+ get.getResponseBodyAsString());
      }catch(Exception e){
          log.error("HTTPC: ["+ url+ "] ("+Arrays.toString(e.getStackTrace()));
      } finally {
