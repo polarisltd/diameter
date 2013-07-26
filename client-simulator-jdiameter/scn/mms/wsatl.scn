@@ -1,0 +1,12 @@
+1 = LOG: web service call test
+2 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/ {"userId":10511,"atlType":"OFFNET","sessionType":"MMS","value":3,"valueType":"LIMIT"}
+3 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/ {"userId":10511,"atlType":"OFFNET","sessionType":"MMS","value":1,"valueType":"COUNTER"}
+4 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/company {"userId":10511,"atlType":"OFFNET","sessionType":"MMS","value":5,"valueType":"LIMIT"}
+5 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/company {"userId":10511,"atlType":"OFFNET","sessionType":"MMS","value":3,"valueType":"COUNTER"}
+6 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/companies/224 {"companyId":224,"atlType":"OFFNET","sessionType":"MMS","value":7,"valueType":"LIMIT"}
+7 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/companies/224 {"companyId":224,"atlType":"OFFNET","sessionType":"MMS","value":5,"valueType":"COUNTER"}
+8 = LOG: Test result.
+9 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511
+10 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/company
+11 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/companies/224 
+

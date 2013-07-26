@@ -34,10 +34,10 @@
 
     <Network>
         <Peers>
-            <Peer name="aaa://172.16.134.3:3868" rating="1"/>
+            <Peer name="aaa://vpn.claro.com:3868" rating="1"/>
         </Peers>
         <Realms>
-            <Realm name ="claro.com" peers="172.16.134.3" local_action="LOCAL" dynamic="false" exp_time="1">
+            <Realm name ="vpn.claro.com" peers="aaa://vpn.claro.com:3868" local_action="LOCAL" dynamic="false" exp_time="1">
                 <ApplicationID>
                  <VendorId value="0"/>
                  <AuthApplId value="4"/>

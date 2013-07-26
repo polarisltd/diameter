@@ -25,9 +25,9 @@
    <G3PP-GGSN-MCC-MNC mandatory="1">26006</G3PP-GGSN-MCC-MNC>
    <G3PP-NSAPI mandatory="1">5</G3PP-NSAPI>
    <G3PP-Selection-Mode mandatory="1">0</G3PP-Selection-Mode>
-   <G3PP-SGSN-Address mandatory="1">89.108.192.57</G3PP-SGSN-Address>
-   <G3PP-GGSN-Address mandatory="1">89.108.192.53</G3PP-GGSN-Address>
-   <G3PP-CG-Address mandatory="1">0xaa33fc50</G3PP-CG-Address>
+   <G3PP-SGSN-Address mandatory="1">ip:70.30.65.9</G3PP-SGSN-Address>
+   <G3PP-GGSN-Address mandatory="1">ip:70.30.65.9</G3PP-GGSN-Address>
+   <G3PP-CG-Address mandatory="1">ip:70.30.65.9</G3PP-CG-Address>
    <!--Framed-IP-Address>0xaa33fc50</Framed-IP-Address-->
    <Nokia-Session-Start-Indicator>1</Nokia-Session-Start-Indicator>
    <Nokia-Rulebase-Id>CHARGE-ALL</Nokia-Rulebase-Id>

@@ -1,0 +1,6 @@
+1 = LOG: *** Testing RAR. (test#4)  
+2 = LOG: *** subscriber 5493512017703 user-id:34
+3 = HTTPGET: http://testblade04:8088/set?u=5493512017703&b=4
+4 = HTTPGET: http://testblade04:8088/test?id=4
+5 = SCN:scn/ggsn/gprs1.scn
+

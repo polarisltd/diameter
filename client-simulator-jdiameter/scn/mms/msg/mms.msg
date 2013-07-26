@@ -46,14 +46,14 @@
         <Message-Size>59073</Message-Size>
         <Submission-Time>0</Submission-Time>
         <MM-Content-Type>
-           <Type-Number>application/vnd.wap.multipart.*</Type-Number>
+           <Type-Number>34</Type-Number>
            <Content-Size>0</Content-Size>
            <Additional-Content-Information>
-              <Type-Number>text/*</Type-Number>
+              <Type-Number>1</Type-Number>
               <Content-Size>4</Content-Size>
            </Additional-Content-Information>
            <Additional-Content-Information>
-              <Type-Number>image/*</Type-Number>
+              <Type-Number>80</Type-Number>
               <Content-Size>58683</Content-Size>
            </Additional-Content-Information>
         </MM-Content-Type>

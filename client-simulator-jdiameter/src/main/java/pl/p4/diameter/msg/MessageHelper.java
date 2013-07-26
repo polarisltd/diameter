@@ -11,6 +11,8 @@ import java.io.StringWriter;
 import java.util.Arrays;
  import java.util.Date;
  import java.util.Iterator;
+
+import javax.xml.bind.DatatypeConverter;
  import javax.xml.parsers.DocumentBuilder;
  import javax.xml.parsers.DocumentBuilderFactory;
  import javax.xml.parsers.ParserConfigurationException;
@@ -307,24 +309,35 @@ import pl.p4.diameter.client.jDiamClient;
        avpSet.addAvp(code, Integer.parseInt(value), vendorId, mflag, pflag);
      } else if (type == AvpType.Integer64) {
        avpSet.addAvp(code, Long.parseLong(value), vendorId, mflag, pflag);
-     } else if (type == AvpType.Unsigned32)
-     {
+     } else if (type == AvpType.Unsigned32){
        avpSet.addAvp(code, Integer.parseInt(value), vendorId, mflag, pflag);
      } else if (type == AvpType.Unsigned64) {
        avpSet.addAvp(code, Long.parseLong(value), vendorId, mflag, pflag);
-     }
-     else if (type == AvpType.Enumerated) {
+     } else if (type == AvpType.Enumerated) {
        avpSet.addAvp(code, Integer.parseInt(value), vendorId, mflag, pflag);
      } else if (type == AvpType.OctetString) {
        if (value.startsWith("0x")) {
-         value = new String(new char[] { '\001' });
-       }
-       avpSet.addAvp(code, value, vendorId, mflag, pflag, true);
+         // value = new String(new char[] { '\001' });  ROBERTS!!!!MAYBE IT SHOULD BE HERE!
+         byte[] b = DatatypeConverter.parseHexBinary(value.substring(2));
+         avpSet.addAvp(code, b, vendorId, mflag, pflag); 
+       }else  if (value.startsWith("ip:")) {
+    	   // this is a workaround in case Diameter field contains ip address but it shouldn't be prefixed with 0x0001
+    	   // if OctetString type value is prefized with ip: rest of string is converted into ipv4.
+    	   // Example value "ip:10.0.10.1"
+           try {
+          	 byte[] a =  InetAddress.getByName(value.substring(3)).getAddress();
+          	 avpSet.addAvp(code, a, vendorId, mflag, pflag);
+           } catch (UnknownHostException ex) {
+               log.error("Unable to parse Address", ex);
+           }
+       }else
+         avpSet.addAvp(code, value, vendorId, mflag, pflag, true); // default way is adding as String
      } else if (type == AvpType.Time) {
        avpSet.addAvp(code, new Date(), vendorId, mflag, pflag);
      } else if (type == AvpType.Address) {
        try {
-         avpSet.addAvp(code, InetAddress.getByName(value), vendorId, mflag, pflag);
+    	 InetAddress a =  InetAddress.getByName(value);
+         avpSet.addAvp(code, a, vendorId, mflag, pflag);
        } catch (UnknownHostException ex) {
          log.error("Unable to parse Address", ex);
        }

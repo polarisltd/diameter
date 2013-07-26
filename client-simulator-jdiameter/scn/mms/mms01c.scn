@@ -1,0 +1,8 @@
+1 = LOG: mms01c MMS with REST call
+2 = #HTTPGET: http://testblade04:8088/set?u=5493512017703&b=2
+3 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/ {"userId":10511,"atlType":"OFFNET","sessionType":"MMS","value":10,"valueType":"COUNTER"}
+4 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/ {"userId":10511,"atlType":"OFFNET","sessionType":"MMS","value":20,"valueType":"LIMIT"}
+5 = MSG:scn/mms/msg/mms.msg
+6 = REST: adl:adl http://testblade04:8081/webservices/rest/atl/users/10511/ 
+7 = #HTTPGET: http://testblade04:8088/set
+8 = #HTTPC: http://testblade04:8092/Counters/_design/dev_doc/_view/dev_test
