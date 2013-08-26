@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- added rat-type for all and last upd rr=6 trigger-type=2 -->
+
+
 <message CommandCode="272" request="1">
    <Destination-Realm mandatory="1">emblacom.com</Destination-Realm>
    <!--Vendor-Specific-Application-Id mandatory="1">
@@ -22,13 +25,15 @@
       <Used-Service-Unit mandatory="1">
            <CC-Input-Octets>5</CC-Input-Octets>
            <CC-Output-Octets>5</CC-Output-Octets>
-           <Reporting-Reason>0</Reporting-Reason>
+           <Reporting-Reason>6</Reporting-Reason>
       </Used-Service-Unit>
       <Service-Identifier>1</Service-Identifier>
       <Rating-Group mandatory="1">1</Rating-Group>
    </Multiple-Services-Credit-Control>
    <Event-Timestamp mandatory="1"/>
+   <!-- Trigger-Type>2</Trigger-Type -->
    <Called-Station-Id>0050</Called-Station-Id>
+   <!-- G3PP-RAT-Type mandatory="1">ababab</G3PP-RAT-Type -->
    <G3PP-Charging-Id mandatory="1">33554660</G3PP-Charging-Id>
    <G3PP-GPRS-Negotiated-QoS-Profile mandatory="1">99-13921f73966897442a6868</G3PP-GPRS-Negotiated-QoS-Profile>
    <G3PP-Charging-Characteristics mandatory="1">808988720</G3PP-Charging-Characteristics>

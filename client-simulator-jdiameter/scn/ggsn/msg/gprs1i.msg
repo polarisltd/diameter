@@ -2,6 +2,7 @@
 
 <message CommandCode="272" request="1">
    <Destination-Realm mandatory="1">emblacom.com</Destination-Realm>
+   <Termination-Cause mandatory="1">1</Termination-Cause>
    <Subscription-Id mandatory="1">
       <Subscription-Id-Type mandatory="1">0</Subscription-Id-Type>
       <Subscription-Id-Data mandatory="1">5493512017703</Subscription-Id-Data>
@@ -17,6 +18,7 @@
    </Multiple-Services-Credit-Control>
    <Event-Timestamp mandatory="1"/>
    <Called-Station-Id>0050</Called-Station-Id>
+   <!-- G3PP-RAT-Type mandatory="1">ababababab</G3PP-RAT-Type -->
    <G3PP-Charging-Id mandatory="1">33554660</G3PP-Charging-Id>
    <G3PP-GPRS-Negotiated-QoS-Profile mandatory="1">99-13921f73966897442a6868</G3PP-GPRS-Negotiated-QoS-Profile>
    <G3PP-Charging-Characteristics mandatory="1">808988720</G3PP-Charging-Characteristics>

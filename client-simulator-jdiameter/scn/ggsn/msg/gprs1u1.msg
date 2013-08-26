@@ -24,6 +24,7 @@
    </Multiple-Services-Credit-Control>
    <Event-Timestamp mandatory="1"/>
    <Called-Station-Id>0050</Called-Station-Id>
+   <!-- G3PP-RAT-Type mandatory="1">abababab</G3PP-RAT-Type -->
    <G3PP-Charging-Id mandatory="1">33554660</G3PP-Charging-Id>
    <G3PP-GPRS-Negotiated-QoS-Profile mandatory="1">99-13921f73966897442a6868</G3PP-GPRS-Negotiated-QoS-Profile>
    <G3PP-Charging-Characteristics mandatory="1">808988720</G3PP-Charging-Characteristics>

@@ -21,38 +21,39 @@
    <Multiple-Services-Indicator mandatory="1">1</Multiple-Services-Indicator>
    <Multiple-Services-Credit-Control mandatory="1">
       <Requested-Service-Unit mandatory="1">
-          <Service-Identifier>1</Service-Identifier>
-          <CC-Service-Specific-Units>1</CC-Service-Specific-Units>
+          <Service-Identifier   mandatory="1">1</Service-Identifier>
+          <CC-Service-Specific-Units   mandatory="1">1</CC-Service-Specific-Units>
       </Requested-Service-Unit>
    </Multiple-Services-Credit-Control>
    <Service-Information mandatory="1">
-       <PS-Information>
-        <G3PP-MS-TimeZone>00000015</G3PP-MS-TimeZone>
-        <G3PP-SGSN-MCC-MNC>722310</G3PP-SGSN-MCC-MNC>
+       <PS-Information mandatory="1">
+        <G3PP-MS-TimeZone  mandatory="1">00000015</G3PP-MS-TimeZone>
+        <G3PP-SGSN-MCC-MNC  mandatory="1">722310</G3PP-SGSN-MCC-MNC>
        </PS-Information>
-       <MMS-Information>
-	<Originator-Address>
-	   <Address-Type>1</Address-Type>
-           <Address-Data>722310212985080</Address-Data>           
+       <MMS-Information  mandatory="1">
+       <Message-ID>9292929292</Message-ID>
+	<Originator-Address  mandatory="1">
+	   <Address-Type  mandatory="1">1</Address-Type>
+           <Address-Data   mandatory="1">7223105876232</Address-Data>           
         </Originator-Address>
-	<Recipient-Address>
-	   <Address-Type>1</Address-Type>
-           <Address-Data>358468890665</Address-Data>
-           <Address-Domain>
-		<Domain-Name>emblacom.com</Domain-Name>
-		<G3PP-IMSI-MCC-MNC>722310</G3PP-IMSI-MCC-MNC>
+	<Recipient-Address   mandatory="1">
+	   <Address-Type   mandatory="1">1</Address-Type>
+           <Address-Data   mandatory="1">358468890665</Address-Data>
+           <Address-Domain mandatory="1">
+		<Domain-Name >emblacom.com</Domain-Name>
+		<G3PP-IMSI-MCC-MNC   mandatory="1">722310</G3PP-IMSI-MCC-MNC>
 	   </Address-Domain>
         </Recipient-Address>
-        <Message-Size>59073</Message-Size>
+        <Message-Size >59073</Message-Size>
         <Submission-Time>0</Submission-Time>
-        <MM-Content-Type>
+        <MM-Content-Type  mandatory="1">
            <Type-Number>34</Type-Number>
            <Content-Size>0</Content-Size>
-           <Additional-Content-Information>
+           <Additional-Content-Information   mandatory="1">
               <Type-Number>1</Type-Number>
               <Content-Size>4</Content-Size>
            </Additional-Content-Information>
-           <Additional-Content-Information>
+           <Additional-Content-Information   mandatory="1">
               <Type-Number>80</Type-Number>
               <Content-Size>58683</Content-Size>
            </Additional-Content-Information>

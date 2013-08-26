@@ -1,8 +1,7 @@
 1 = LOG: =============== This is GPRS =========================================
 2 = MSG:scn/ggsn/msg/gprs1i.msg
-3 = WAIT:2000
-4 = MSG:scn/ggsn/msg/gprs1u1.msg
-5 = WAIT:2000
-6 = MSG:scn/ggsn/msg/gprs1u2.msg
-7 = WAIT:5000
-8 = MSG:scn/ggsn/msg/gprs1t.msg
+3 = MSG:scn/ggsn/msg/gprs1u1.msg
+4 = WAIT:2000
+5 = MSG:scn/ggsn/msg/gprs1u2.msg
+6 = WAIT:2000
+7 = MSG:scn/ggsn/msg/gprs1t.msg

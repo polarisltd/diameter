@@ -2,6 +2,7 @@
 
 <message CommandCode="272" request="1">
    <Destination-Realm mandatory="1">emblacom.com</Destination-Realm>
+   <Termination-Cause mandatory="1">1</Termination-Cause>
    <!--Vendor-Specific-Application-Id mandatory="1">
       <Vendor-Id mandatory="1">10415</Vendor-Id>
       <Auth-Application-Id mandatory="1">4</Auth-Application-Id>
@@ -18,7 +19,7 @@
       <Used-Service-Unit mandatory="1">
            <CC-Input-Octets>5</CC-Input-Octets>
            <CC-Output-Octets>5</CC-Output-Octets>
-           <Reporting-Reason>0</Reporting-Reason>
+           <Reporting-Reason>2</Reporting-Reason>
       </Used-Service-Unit>
       <Service-Identifier>1</Service-Identifier>
       <Rating-Group mandatory="1">1</Rating-Group>
