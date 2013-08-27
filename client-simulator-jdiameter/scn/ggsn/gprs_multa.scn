@@ -1,0 +1,6 @@
+1 = LOG: =============== This is GPRS / TT Mult scen #2 =========================================
+2 = MSG:scn/ggsn/msg/gprs1i.msg
+3 = MSG:scn/ggsn/msg/gprsMultA_u1.msg
+4 = MSG:scn/ggsn/msg/gprsMultA_u2.msg
+5 = MSG:scn/ggsn/msg/gprsMultA_u3.msg
+6 = MSG:scn/ggsn/msg/gprsMultA_t.msg

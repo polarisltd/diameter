@@ -1,0 +1,16 @@
+ Volume in drive C has no label.
+ Volume Serial Number is B217-A97F
+
+ Directory of C:\Java\gitHub\diameter\client-simulator-jdiameter\scn\ggsn\msg
+
+08/01/2013  04:23 PM    <DIR>          .
+08/01/2013  04:23 PM    <DIR>          ..
+07/26/2013  09:50 AM             1,873 gprs1i.msg
+08/01/2013  04:23 PM             1,800 gprs1inoSvcCtxId.msg
+07/26/2013  09:55 AM             2,183 gprs1t.msg
+07/26/2013  09:55 AM             2,183 gprs1ttermcause.msg
+07/26/2013  09:55 AM             2,139 gprs1u1.msg
+07/26/2013  09:55 AM             2,354 gprs1u2.msg
+08/01/2013  04:23 PM                 0 w
+               7 File(s)         12,532 bytes
+               2 Dir(s)  29,660,151,808 bytes free

@@ -1,0 +1,3 @@
+1 = LOG: MMS Refund
+2 = MSG:scn/mms/msg/mmsRefund.msg
+3 = WAIT:5000
