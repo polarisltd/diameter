@@ -79,12 +79,12 @@ public class DiameterUtilities {
           isGrouped = true;
         }
         else {
-          avpValue = avp.getOctetString().replaceAll("\r", "").replaceAll("\n", "");
+          avpValue = avp.getUTF8String().replaceAll("\r", "").replaceAll("\n", "");
         }
       }
       catch (Exception ignore) {
         try {
-          avpValue = avp.getOctetString().replaceAll("\r", "").replaceAll("\n", "");
+          avpValue = avp.getUTF8String().replaceAll("\r", "").replaceAll("\n", "");
         }
         catch (AvpDataException e) {
           avpValue = avp.toString();
@@ -147,12 +147,12 @@ public class DiameterUtilities {
 	          isGrouped = true;
 	        }
 	        else {
-	          avpValue = avp.getOctetString().replaceAll("\r", "").replaceAll("\n", "");
+	          avpValue = avp.getUTF8String().replaceAll("\r", "").replaceAll("\n", "");
 	        }
 	      }
 	      catch (Exception ignore) {
 	        try {
-	          avpValue = avp.getOctetString().replaceAll("\r", "").replaceAll("\n", "");
+	          avpValue = avp.getUTF8String().replaceAll("\r", "").replaceAll("\n", "");
 	        }
 	        catch (AvpDataException e) {
 	          avpValue = avp.toString();

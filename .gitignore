@@ -1,9 +1,7 @@
-charging-server-simulatorGx/target/*
-charging-server-simulatorGx/target/*/*
-charging-server-simulatorGx/target/*/*/*
-client-simulator-jdiameter/target/*
-client-simulator-jdiameter/target/*/*
-client-simulator-jdiameter/bin/*
-client-simulator-jdiameter/log/*
-client-simulator-jdiameter/lib/*
 !.gitignore
+target/
+bin/
+log/
+lib/
+
+
