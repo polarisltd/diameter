@@ -4,7 +4,7 @@
   <LocalPeer>
     <URI value="aaa://prepaidxx:3878" />
     <IPAddresses>
-      <IPAddress value="172.16.133.122" />
+      <IPAddress value="127.0.0.1" />
     </IPAddresses>
     <Realm value="prepaid.xx" />
     <VendorID value="10415" />
@@ -39,10 +39,10 @@
 
   <Network>
     <Peers>
-      <Peer name="aaa://172.16.133.122:3868" attempt_connect="false" rating="1" /> <!-- testblade04-ems -->
+      <Peer name="aaa://127.0.0.1:3868" attempt_connect="false" rating="1" /> <!-- testblade04-ems -->
     </Peers>
     <Realms>
-      <Realm name="emblacom.com" peers="172.16.133.122" local_action="LOCAL" dynamic="false" exp_time="1">
+      <Realm name="emblacom.com" peers="127.0.0.1" local_action="LOCAL" dynamic="false" exp_time="1">
                 <ApplicationID>
                     <VendorId value="0" /> 
                     <AuthApplId value="4" /> <!-- Should be in AcctApplId, but is not for some reason.... -->

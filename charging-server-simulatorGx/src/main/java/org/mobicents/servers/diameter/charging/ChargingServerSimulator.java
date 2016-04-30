@@ -108,6 +108,8 @@ final int  Rating_Group=432;
   ChargingServerSimulator sim;
   ServerGxSession ses;
   GxCreditControlRequest req;
+  private String httpHost;
+  private Integer httpPort=8088;
   /**
    * @param args
    * @throws Exception 
@@ -126,10 +128,10 @@ final int  Rating_Group=432;
       //
       //stackCreator = setup.stackCreator;
 //      this.setup = su;
-        int port=8088;
         String path = "/test"; // path starting from slash (/)
         String path2 = "/set";
-        InetSocketAddress addr = new InetSocketAddress(port);
+        InetSocketAddress addr = new InetSocketAddress(httpPort);
+        httpHost = addr.toString();
         HttpServer server = HttpServer.create(addr, 0);
         //server.createContext(path, this);
         HttpContext context = server.createContext(path, this);
@@ -139,8 +141,8 @@ final int  Rating_Group=432;
         context.getFilters().add(new ParameterFilter());
 
 
-        logger.info("HttpServer host:"+addr.toString()+path);
-        logger.info("HttpServer host:"+addr.toString()+path2);
+        logger.info("HttpServer host:"+httpHost+path);
+        logger.info("HttpServer host:"+httpHost+path2);
         
         server.setExecutor(null); // creates a default executor
         server.start();
@@ -206,16 +208,18 @@ final int  Rating_Group=432;
             Map params = (Map)t.getAttribute("parameters");
 
             String title="";
+            String response = "";
             logger.info("HTTP request  path:"+path+"   attrib:"+params.toString()+" "+new Timestamp(d.getTime()));
             if(!params.containsKey("id")){
-                title = testOption.toString();
+                response = formatHelp(testOption);
             }else{
               testId =  (String)params.get("id"); // class instance variable
               logger.info("http test setup id="+testId);
               title = testOption.get(testId);
-              if (title == null) title="N/A";              
+              if (title == null) title="N/A";  
+              response = ""+new Timestamp(d.getTime())+" "+params.toString()+" id="+testId+" => "+title;
             }
-            String response = ""+new Timestamp(d.getTime())+" "+params.toString()+" id="+testId+" => "+title;
+            
             //
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
@@ -248,6 +252,28 @@ final int  Rating_Group=432;
         }
 
 
+    public String formatHelp(Map<String,String> testOption){
+        StringBuffer out = new StringBuffer()
+                .append("<html>")
+                .append("<title>Test Setup</title>")
+                .append("<body>")
+                .append("<h1>Diameter simulator test setup page</h1>")
+                .append("<p>Provide test setup via http://"+httpHost+"/test?id=<test_id></p>")
+                .append("<p>Update test data via http://"+httpHost+"/set</p>")
+                .append("<p>Following tests are available:</p><table>")
+                ;
+        for(String k : testOption.keySet()){
+            out.append("<tr><td>").append(k).append(" = ").append(testOption.get(k)).append("</td></tr>");
+        }        
+        out.append("</table><p> To change test data please use http://host/set</p>");
+        out.append("</body></html>"); 
+        return out.toString();
+         
+     }   
+        
+        
+        
+        
 
   private void printLogo() {
     if(logger.isInfoEnabled()) {
