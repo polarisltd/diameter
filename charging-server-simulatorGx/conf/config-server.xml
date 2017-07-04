@@ -2,9 +2,9 @@
 <Configuration xmlns="http://www.jdiameter.org/jdiameter-server">
 
   <LocalPeer>
-    <URI value="aaa://172.16.133.120:3878" />
+    <URI value="aaa://prepaid.xx:3003" />
     <IPAddresses>
-      <IPAddress value="172.16.133.120" />
+      <IPAddress value="prepaid.xx" />
     </IPAddresses>
     <Realm value="prepaid.xx" />
     <VendorID value="10415" />
@@ -39,10 +39,10 @@
 
   <Network>
     <Peers>
-      <Peer name="aaa://172.16.133.122:3868" attempt_connect="true" rating="1" /> <!-- testblade04-ems -->
+      <Peer name="aaa://127.0.0.1:3005" attempt_connect="true" rating="1" /> <!-- testblade04-ems -->
     </Peers>
     <Realms>
-      <Realm name="emblacom.com" peers="172.16.133.122" local_action="LOCAL" dynamic="false" exp_time="1">
+      <Realm name="prepaid.xx" peers="127.0.0.1" local_action="LOCAL" dynamic="false" exp_time="1">
                 <ApplicationID>
                     <VendorId value="10415" /> 
                     <AuthApplId value="4" /> <!-- Should be in AcctApplId, but is not for some reason.... -->

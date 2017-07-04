@@ -13,7 +13,7 @@
     <OverloadMonitor>
       <Entry index="1" lowThreshold="0.5" highThreshold="0.6">
                 <ApplicationID>
-                    <VendorId value="10415" /> 
+                    <VendorId value="0" /> 
                     <AuthApplId value="4" /> <!-- Should be in AcctApplId, but is not for some reason.... -->
                     <AcctApplId value="0" />
                 </ApplicationID>
@@ -39,12 +39,12 @@
 
   <Network>
     <Peers>
-      <Peer name="aaa://127.0.0.1:3005" attempt_connect="true" rating="1" /> <!-- testblade04-ems -->
+      <Peer name="aaa://127.0.0.1:3005" attempt_connect="false" rating="1" /> <!-- testblade04-ems -->
     </Peers>
     <Realms>
-      <Realm name="prepaid.xx" peers="127.0.0.1" local_action="LOCAL" dynamic="false" exp_time="1">
+      <Realm name="preoaid.xx" peers="127.0.0.1" local_action="LOCAL" dynamic="false" exp_time="1">
                 <ApplicationID>
-                    <VendorId value="10415" /> 
+                    <VendorId value="0" /> 
                     <AuthApplId value="4" /> <!-- Should be in AcctApplId, but is not for some reason.... -->
                     <AcctApplId value="0" />
                 </ApplicationID>
